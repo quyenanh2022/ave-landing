@@ -20,6 +20,47 @@ html{scroll-behavior:smooth}
 body{margin:0;background:#0E0E10;-webkit-text-size-adjust:100%}
 a{color:#FFE45C}a:hover{color:#fff1a8}
 section[id]{scroll-margin-top:16px}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq[open] .faq-ic{transform:rotate(45deg)}
+.faq-ic{transition:transform .2s;display:inline-block}
+.mbar{display:none}
+@media (max-width: 640px){
+ body{font-size:15px}
+ .nav-links{display:none!important}
+ header nav{padding:12px 16px!important}
+ header nav > a:last-child{padding:10px 14px!important;font-size:14px!important}
+ section[style*="padding"], section > div[style*="max-width: 1200px"]{padding:36px 16px!important}
+ #top{gap:28px!important;padding-top:28px!important}
+ h1{font-size:33px!important}
+ h2{font-size:25px!important;margin-bottom:18px!important}
+ h3{font-size:17px!important}
+ p{font-size:15px!important}
+ #top p:first-child{font-size:12px!important}
+ .vid-hero{max-width:290px}
+ .vid-review{max-width:250px}
+ #review{gap:24px!important}
+ .cmp-head{display:none!important}
+ .cmp-row{grid-template-columns:1fr!important;gap:4px!important;padding:14px 16px!important}
+ .cmp-row > span:nth-child(2){display:none!important}
+ .cmp-row > span:first-child{font-size:14px;color:#A9A8A2!important;font-weight:500!important}
+ .feat{padding:16px 18px!important;display:grid!important;grid-template-columns:24px 1fr;column-gap:12px!important;row-gap:4px!important}
+ .feat > svg{width:24px;height:24px;grid-row:1 / span 2;margin-top:1px}
+ .steps{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px 14px!important}
+ .steps span{font-size:26px!important}
+ .hd-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px!important}
+ .hd-grid > div{gap:8px!important}
+ .hd-grid p{display:none}
+ .hd-grid > div > div{padding:6px!important;border-radius:16px!important}
+ details.faq{padding:0 16px!important}
+ details.faq summary{padding:16px 0!important;font-size:15px!important}
+ #lien-he > div{padding:32px 22px!important;border-radius:20px!important}
+ footer{padding-bottom:72px}
+ .mbar{display:flex;font-family:'Be Vietnam Pro',system-ui,sans-serif;position:fixed;left:0;right:0;bottom:0;z-index:50;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(14,14,16,.94);backdrop-filter:blur(8px);border-top:1px solid #26262E}
+ .mbar a{flex:1;text-align:center;text-decoration:none;font-weight:700;font-size:15px;padding:13px 8px;border-radius:12px}
+ .mbar-a1{background:#FFE45C;color:#111!important}
+ .mbar-a2{border:1px solid #3A3A44;color:#F2F1EC!important}
+}
+
 </style>
 </head>
 <body>
@@ -32,7 +73,7 @@ section[id]{scroll-margin-top:16px}
 <span style="background: #FFE45C; color: #111; font-weight: 800; font-size: 18px; padding: 4px 10px; border-radius: 8px">AVE</span>
 <span style="font-weight: 700; font-size: 18px">Studio</span>
 </a>
-<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; flex: 1 1 auto; font-size: 15px">
+<div class="nav-links" style="display: flex; flex-wrap: wrap; gap: 8px 24px; flex: 1 1 auto; font-size: 15px">
 <a href="#truoc-sau" style="color: #C9C8C2; text-decoration: none">Trước / Sau</a>
 <a href="#tinh-nang" style="color: #C9C8C2; text-decoration: none">Tính năng</a>
 <a href="#cach-dung" style="color: #C9C8C2; text-decoration: none">Cách dùng</a>
@@ -61,7 +102,7 @@ section[id]{scroll-margin-top:16px}
 <span style="display: flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Tự cập nhật bản mới</span>
 </div>
 </div>
-<div id="truoc-sau" style="flex: 0 1 380px; min-width: 0; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 24px">
+<div id="truoc-sau" class="vid-hero" style="flex: 0 1 380px; min-width: 0; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 24px">
 <div style="background: #18181D; border: 1px solid #2A2A33; border-radius: 28px; padding: 12px">
 <video src="media/truoc-sau.mp4" poster="media/truoc-sau.jpg" controls playsinline preload="metadata" aria-label="Video so sánh trước và sau khi AVE edit" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; background: #0A0A0C; object-fit: cover"></video>
 </div>
@@ -78,30 +119,30 @@ section[id]{scroll-margin-top:16px}
 <p style="margin: 0; color: #B3B2AC; font-size: 17px">Thứ bạn còn phải làm: quay, xem lại và bấm xuất.</p>
 </div>
 <div style="overflow-x: auto; border: 1px solid #26262E; border-radius: 18px; background: #16161B">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 4px 16px; padding: 16px 20px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #A9A8A2">
+<div class="cmp-head" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 4px 16px; padding: 16px 20px; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #A9A8A2">
 <span>Việc cần làm</span><span>Tự edit</span><span style="color: #FFE45C">Với AVE</span>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
+<div class="cmp-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
 <span style="font-weight: 600; color: #F2F1EC">Cắt “ờ, à, thì là”, câu nói lại</span>
 <span style="display: flex; gap: 8px; color: #A9A8A2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8E8D87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Tua từng đoạn, cắt bằng tay</span>
 <span style="display: flex; gap: 8px; color: #F2F1EC"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg>Tự tìm và cắt, bạn duyệt lại</span>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
+<div class="cmp-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
 <span style="font-weight: 600; color: #F2F1EC">Sub tiếng Việt khớp từng chữ</span>
 <span style="display: flex; gap: 8px; color: #A9A8A2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8E8D87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Gõ và căn từng dòng</span>
 <span style="display: flex; gap: 8px; color: #F2F1EC"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg>Tự làm, không ngắt giữa từ ghép</span>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
+<div class="cmp-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
 <span style="font-weight: 600; color: #F2F1EC">Cảnh trám cho đỡ nhàm</span>
 <span style="display: flex; gap: 8px; color: #A9A8A2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8E8D87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Lục kho, kéo thả từng cảnh</span>
 <span style="display: flex; gap: 8px; color: #F2F1EC"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg>Tự chèn khoảng 40% thời lượng, không lặp cảnh</span>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
+<div class="cmp-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
 <span style="font-weight: 600; color: #F2F1EC">Hook giữ chân người xem</span>
 <span style="display: flex; gap: 8px; color: #A9A8A2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8E8D87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Xem lại cả video để chọn câu</span>
 <span style="display: flex; gap: 8px; color: #F2F1EC"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg>Tự đề xuất câu mạnh nhất lên đầu</span>
 </div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
+<div class="cmp-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 16px; padding: 18px 20px; border-top: 1px solid #26262E; font-size: 15px">
 <span style="font-weight: 600; color: #F2F1EC">Xuất video 1080p</span>
 <span style="display: flex; gap: 8px; color: #A9A8A2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8E8D87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Chờ máy xuất</span>
 <span style="display: flex; gap: 8px; color: #F2F1EC"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg>Video 3 phút xuất khoảng 13 phút (Mac M1)</span>
@@ -113,7 +154,7 @@ section[id]{scroll-margin-top:16px}
 
 <!-- REVIEW -->
 <section id="review" style="max-width: 1200px; margin: 0 auto; padding: 88px 24px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
-<div style="flex: 0 1 340px; min-width: 0; margin: 0 auto">
+<div class="vid-review" style="flex: 0 1 340px; min-width: 0; margin: 0 auto">
 <div style="background: #18181D; border: 1px solid #2A2A33; border-radius: 28px; padding: 12px">
 <video src="media/review.mp4" poster="media/review.jpg" controls playsinline preload="none" aria-label="Video giới thiệu AVE Studio" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; background: #0A0A0C; object-fit: cover"></video>
 </div>
@@ -131,37 +172,37 @@ section[id]{scroll-margin-top:16px}
 <h2 style="margin: 0 0 40px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.01em">AVE làm thay bạn những gì</h2>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
 
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div class="feat" style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"></path></svg>
 <h3 style="margin: 0; font-size: 20px; font-weight: 700">Cắt từ đệm, câu thừa</h3>
 <p style="margin: 0; color: #B3B2AC; font-size: 15px">Nhận giọng nói thành chữ tới từng từ, tự tìm “ờ, à”, câu nói hỏng, đoạn lặng để cắt gọn.</p>
 </div>
 
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div class="feat" style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
 <h3 style="margin: 0; font-size: 20px; font-weight: 700">Hook mở đầu</h3>
 <p style="margin: 0; color: #B3B2AC; font-size: 15px">Chọn câu đắt nhất trong video đưa lên đầu, giữ chân người xem ngay giây đầu tiên.</p>
 </div>
 
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div class="feat" style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><rect x="7" y="7" width="10" height="7" rx="1"></rect></svg>
 <h3 style="margin: 0; font-size: 20px; font-weight: 700">Cảnh trám tự động</h3>
 <p style="margin: 0; color: #B3B2AC; font-size: 15px">Chèn cảnh minh hoạ khoảng 40% thời lượng, mỗi cảnh 2–4 giây, không lặp, kiểu kính mờ hoặc popup.</p>
 </div>
 
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div class="feat" style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M6 15h5M14 15h4M6 11h12"></path></svg>
 <h3 style="margin: 0; font-size: 20px; font-weight: 700">Sub tiếng Việt chuẩn</h3>
 <p style="margin: 0; color: #B3B2AC; font-size: 15px">Chữ trắng một dòng, nhấn vàng một dòng, khớp từng từ và không bao giờ ngắt giữa từ ghép.</p>
 </div>
 
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div class="feat" style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
 <h3 style="margin: 0; font-size: 20px; font-weight: 700">Duyệt trước khi xuất</h3>
 <p style="margin: 0; color: #B3B2AC; font-size: 15px">Xem lại chỗ cắt, hook, cảnh trám và sub trong AVE Studio, sửa chỗ nào muốn rồi mới xuất.</p>
 </div>
 
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
+<div class="feat" style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 12px">
 <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="m7 10 5 5 5-5M12 15V3"></path></svg>
 <h3 style="margin: 0; font-size: 20px; font-weight: 700">Xuất video chuẩn nét 4K</h3>
 <p style="margin: 0; color: #B3B2AC; font-size: 15px">Dùng GPU của máy để xuất nhanh. Trên Mac M1, video 3 phút mất khoảng 13 phút.</p>
@@ -193,7 +234,7 @@ section[id]{scroll-margin-top:16px}
 <section id="cach-dung" style="background: #141418; border-top: 1px solid #23232A; border-bottom: 1px solid #23232A">
 <div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px">
 <h2 style="margin: 0 0 40px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.01em">4 bước, từ video thô đến video đăng được</h2>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px">
+<div class="steps" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px">
 <div style="display: flex; flex-direction: column; gap: 10px">
 <span style="font-size: 40px; font-weight: 800; color: #FFE45C; line-height: 1">01</span>
 <h3 style="margin: 0; font-size: 19px; font-weight: 700">Đưa video vào</h3>
@@ -225,7 +266,7 @@ section[id]{scroll-margin-top:16px}
 <h2 style="margin: 0; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.01em">Cài đặt và sử dụng — xem là làm được</h2>
 <p style="margin: 0; font-size: 17px; color: #C9C8C2; max-width: 620px">Chọn video đúng máy của bạn. Mỗi video chưa tới 1 phút, đi từng bước từ cài đặt đến xuất video đầu tiên.</p>
 </div>
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px">
+<div class="hd-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px">
 <div style="flex: 0 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
 <div style="background: #18181D; border: 1px solid #2A2A33; border-radius: 28px; padding: 12px">
 <video src="media/hdsd-mac.mp4" poster="media/hdsd-mac.jpg" controls playsinline preload="none" aria-label="Video hướng dẫn cài đặt và sử dụng AVE trên Mac" style="display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; background: #0A0A0C; object-fit: cover"></video>
@@ -282,26 +323,11 @@ section[id]{scroll-margin-top:16px}
 <section id="hoi-dap" style="max-width: 900px; margin: 0 auto; padding: 48px 24px 72px">
 <h2 style="margin: 0 0 28px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.01em">Hỏi đáp</h2>
 <div style="display: flex; flex-direction: column; gap: 14px">
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 22px 24px">
-<h3 style="margin: 0 0 6px; font-size: 17px; font-weight: 700">Máy nào chạy được AVE?</h3>
-<p style="margin: 0; color: #B3B2AC; font-size: 15px">Mac chip Apple (M1 trở lên) hoặc Windows 10/11, ổ đĩa trống từ 10 GB. Máy có card NVIDIA sẽ chép lời nhanh hơn; không có card rời AVE vẫn chạy bình thường.</p>
-</div>
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 22px 24px">
-<h3 style="margin: 0 0 6px; font-size: 17px; font-weight: 700">Cài đặt có khó không?</h3>
-<p style="margin: 0; color: #B3B2AC; font-size: 15px">Giải nén, bấm đúp một file là AVE tự cài mọi thứ cần thiết. Lần đầu cần mạng và khoảng 10–20 phút.</p>
-</div>
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 22px 24px">
-<h3 style="margin: 0 0 6px; font-size: 17px; font-weight: 700">Có phải biết dựng video không?</h3>
-<p style="margin: 0; color: #B3B2AC; font-size: 15px">Không. AVE làm phần edit, bạn chỉ duyệt và bấm xuất. Muốn chỉnh kỹ hơn thì sửa ngay trong AVE Studio.</p>
-</div>
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 22px 24px">
-<h3 style="margin: 0 0 6px; font-size: 17px; font-weight: 700">Có bản mới thì cập nhật thế nào?</h3>
-<p style="margin: 0; color: #B3B2AC; font-size: 15px">AVE tự báo khi có bản mới. Bấm “Cập nhật” là xong trong khoảng 1 phút, video và cài đặt giữ nguyên.</p>
-</div>
-<div style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 22px 24px">
-<h3 style="margin: 0 0 6px; font-size: 17px; font-weight: 700">Đổi máy thì sao?</h3>
-<p style="margin: 0; color: #B3B2AC; font-size: 15px">Mỗi bản quyền gắn với 1 máy. Đổi máy, bạn gửi mã máy mới để được cấp lại mã kích hoạt.</p>
-</div>
+<details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Máy nào chạy được AVE?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Mac chip Apple (M1 trở lên) hoặc Windows 10/11, ổ đĩa trống từ 10 GB. Máy có card NVIDIA sẽ chép lời nhanh hơn; không có card rời AVE vẫn chạy bình thường.</p></details>
+<details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Cài đặt có khó không?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Giải nén, bấm đúp một file là AVE tự cài mọi thứ cần thiết. Lần đầu cần mạng và khoảng 10–20 phút.</p></details>
+<details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Có phải biết dựng video không?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Không. AVE làm phần edit, bạn chỉ duyệt và bấm xuất. Muốn chỉnh kỹ hơn thì sửa ngay trong AVE Studio.</p></details>
+<details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Có bản mới thì cập nhật thế nào?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">AVE tự báo khi có bản mới. Bấm “Cập nhật” là xong trong khoảng 1 phút, video và cài đặt giữ nguyên.</p></details>
+<details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Đổi máy thì sao?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Mỗi bản quyền gắn với 1 máy. Đổi máy, bạn gửi mã máy mới để được cấp lại mã kích hoạt.</p></details>
 </div>
 </section>
 
@@ -323,6 +349,10 @@ section[id]{scroll-margin-top:16px}
 </div>
 </footer>
 
+</div>
+<div class="mbar" role="region" aria-label="Đăng ký nhanh">
+<a href="#bang-gia" class="mbar-a2">Xem bảng giá</a>
+<a href="#bang-gia" class="mbar-a1">Thử 1 video · 59k</a>
 </div>
 </body>
 </html>
