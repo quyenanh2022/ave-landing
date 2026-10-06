@@ -23,36 +23,63 @@ section[id]{scroll-margin-top:16px}
 /* popup thanh toán */
 .pay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#F2F1EC}
 .pay[hidden]{display:none}
-.pay-box{position:relative;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow:auto;background:#16161B;border:1px solid #2A2A33;border-radius:20px;padding:28px 24px;box-sizing:border-box}
-.pay-x{position:absolute;top:10px;right:12px;background:none;border:0;color:#A9A8A2;font-size:28px;line-height:1;cursor:pointer;padding:6px}
-.pay-h{margin:0;font-size:22px;font-weight:800}
-.pay-price{margin:4px 0 18px;font-size:26px;font-weight:800;color:#FFE45C}
+.pay{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.pay-box{--pc:#FFE45C;--pc-ink:#111;--pc-rgb:255,228,92;position:relative;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow:auto;background:#16161B;border:1px solid rgba(var(--pc-rgb),.45);border-radius:20px;padding:0 24px 24px;box-sizing:border-box;box-shadow:0 0 0 1px rgba(var(--pc-rgb),.15),0 24px 70px rgba(var(--pc-rgb),.22),0 10px 40px rgba(0,0,0,.6)}
+.pay-box[data-plan=m30]{--pc:#7aa7ff;--pc-ink:#0b1530;--pc-rgb:122,167,255}
+.pay-box[data-plan=m90]{--pc:#3fd07a;--pc-ink:#06210f;--pc-rgb:63,208,122}
+.pay-box::before{content:"";position:sticky;top:0;display:block;height:5px;margin:0 -24px;background:var(--pc);z-index:2}
+.pay-head{margin:0 -24px 16px;padding:20px 24px 16px;background:linear-gradient(160deg,rgba(var(--pc-rgb),.26),rgba(var(--pc-rgb),.04) 70%);border-bottom:1px solid rgba(var(--pc-rgb),.25)}
+.pay-badge{display:inline-block;background:var(--pc);color:var(--pc-ink);font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 10px;border-radius:99px;margin-bottom:10px}
+.pay-badge:empty{display:none}
+.pay-x{position:absolute;top:12px;right:12px;z-index:3;background:rgba(0,0,0,.35);border:0;border-radius:50%;width:38px;height:38px;color:#F2F1EC;font-size:24px;line-height:1;cursor:pointer;padding:0}
+.pay-h{margin:0;font-size:24px;font-weight:800;padding-right:36px}
+.pay-price{margin:4px 0 0;font-size:32px;font-weight:800;color:var(--pc);text-shadow:0 0 24px rgba(var(--pc-rgb),.45)}
+.pay-price small{font-size:15px;font-weight:600;color:#C9C8C2;text-shadow:none;margin-left:4px}
+.pay-perks{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:5px;font-size:14px;color:#DAD9D3}
+.pay-perks li::before{content:"✓";color:var(--pc);font-weight:800;margin-right:8px}
+.pay-perks[hidden]{display:none}
+.pay-steps{list-style:none;display:flex;gap:6px;margin:0 0 16px;padding:0;font-size:12px;font-weight:600;color:#8A8984}
+.pay-steps li{flex:1;text-align:center;padding-top:8px;border-top:3px solid #2A2A33;transition:color .3s,border-color .3s}
+.pay-steps li.on{color:var(--pc);border-color:var(--pc)}
+.pay-steps li.ok{color:#C9C8C2;border-color:rgba(var(--pc-rgb),.5)}
+.pay.is-open{animation:payFade .25s ease-out}
+.pay.is-open .pay-box{animation:payIn .45s cubic-bezier(.2,1.3,.4,1)}
+.pay.is-open .pay-badge{animation:payGlow 1.6s ease-in-out 2}
+@keyframes payFade{from{opacity:0}to{opacity:1}}
+@keyframes payIn{from{opacity:0;transform:translateY(24px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes paySheet{from{transform:translateY(100%)}to{transform:none}}
+@keyframes payGlow{50%{box-shadow:0 0 0 6px rgba(var(--pc-rgb),.25)}}
+@keyframes payPop{0%{transform:scale(0)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.pay-step:not([hidden]){animation:payFade .3s ease-out}
 .pay-step{display:flex;flex-direction:column;gap:12px}
 .pay-step[hidden],.pay-trial[hidden],.pay-up[hidden],.pay-qrwrap[hidden],.pay-info[hidden],#payLink[hidden]{display:none}
 .pay-trial{display:flex;flex-direction:column;gap:12px}
 .pay label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600}
 .pay input,.pay textarea{font:inherit;font-weight:400;font-size:16px;color:#F2F1EC;background:#0E0E10;border:1px solid #3A3A44;border-radius:10px;padding:11px 12px}
 .pay input[type=file]{padding:9px;font-size:14px}
-.pay input:focus,.pay textarea:focus{outline:2px solid #FFE45C;outline-offset:1px}
+.pay input:focus,.pay textarea:focus{outline:2px solid var(--pc);outline-offset:1px}
 .pay-mute{color:#A9A8A2;font-weight:400}
 .pay-small{font-size:13px;margin:0}
 .pay-err{margin:0;color:#ff8a80;font-size:14px;min-height:0}
-.pay-btn{display:block;text-align:center;background:#FFE45C;color:#111!important;font-weight:700;font-size:16px;border:0;border-radius:12px;padding:14px 16px;cursor:pointer;text-decoration:none;font-family:inherit}
+.pay-btn{display:block;text-align:center;background:var(--pc);color:var(--pc-ink)!important;box-shadow:0 6px 20px rgba(var(--pc-rgb),.3);transition:transform .15s,box-shadow .15s;font-weight:700;font-size:16px;border:0;border-radius:12px;padding:14px 16px;cursor:pointer;text-decoration:none;font-family:inherit}
+.pay-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(var(--pc-rgb),.45)}
 .pay-btn:disabled{opacity:.6;cursor:wait}
-.pay-btn2{background:transparent;color:#F2F1EC!important;border:1px solid #3A3A44}
+.pay-btn2{background:transparent;color:#F2F1EC!important;border:1px solid rgba(var(--pc-rgb),.5);box-shadow:none}
 .pay-qrwrap{display:flex;justify-content:center}
+#qr{background:#fff;padding:10px;border-radius:14px;box-shadow:0 0 0 4px var(--pc),0 0 30px rgba(var(--pc-rgb),.4)}
 #qr{background:#fff;padding:12px;border-radius:14px;line-height:0}
 .pay-info{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:15px}
 .pay-info dt{color:#A9A8A2}.pay-info dd{margin:0;font-weight:700;word-break:break-all}
-.pay-bar{height:8px;background:#26262E;border-radius:99px;overflow:hidden}.pay-bar i{display:block;height:100%;width:0;background:#FFE45C;transition:width .3s}
+.pay-bar{height:8px;background:#26262E;border-radius:99px;overflow:hidden}.pay-bar i{display:block;height:100%;width:0;background:var(--pc);transition:width .3s}
 .pay-up{display:flex;flex-direction:column;gap:6px}
 .pay-wait{display:flex;align-items:center;gap:10px;margin:4px 0 0;font-size:14px;color:#C9C8C2}
-.pay-spin{width:16px;height:16px;flex:none;border:2px solid #3A3A44;border-top-color:#FFE45C;border-radius:50%;animation:payspin 1s linear infinite}
+.pay-spin{width:16px;height:16px;flex:none;border:2px solid #3A3A44;border-top-color:var(--pc);border-radius:50%;animation:payspin 1s linear infinite}
 @keyframes payspin{to{transform:rotate(360deg)}}
-.pay-ok{width:56px;height:56px;border-radius:50%;background:#FFE45C;color:#111;font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.pay-ok{width:64px;height:64px;border-radius:50%;background:var(--pc);color:var(--pc-ink);box-shadow:0 0 0 8px rgba(var(--pc-rgb),.18);animation:payPop .5s cubic-bezier(.2,1.4,.4,1);font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto}
 .pay-done-msg{margin:0;text-align:center;font-size:15px;line-height:1.6}
 .pay-dl{display:flex;flex-direction:column;gap:10px}
-@media (max-width:640px){.pay{padding:0;align-items:flex-end}.pay-box{max-width:none;border-radius:20px 20px 0 0;max-height:92vh;padding:24px 18px calc(20px + env(safe-area-inset-bottom))}}
+@media (max-width:640px){.pay{padding:0;align-items:flex-end}.pay-box{max-width:none;border-radius:20px 20px 0 0;max-height:92vh;padding:0 18px calc(20px + env(safe-area-inset-bottom))}.pay-box::before{margin:0 -18px}.pay-head{margin:0 -18px 14px;padding:18px 18px 14px}.pay.is-open .pay-box{animation:paySheet .35s cubic-bezier(.2,.9,.3,1)}}
+@media (prefers-reduced-motion:reduce){.pay.is-open,.pay.is-open .pay-box,.pay.is-open .pay-badge,.pay-step:not([hidden]),.pay-ok{animation:none!important}}
 details.faq summary::-webkit-details-marker{display:none}
 details.faq[open] .faq-ic{transform:rotate(45deg)}
 .faq-ic{transition:transform .2s;display:inline-block}
@@ -392,8 +419,8 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <div id="pay" class="pay" hidden role="dialog" aria-modal="true" aria-labelledby="payTitle">
 <div class="pay-box">
 <button type="button" class="pay-x" aria-label="Đóng" data-close>×</button>
-<h2 id="payTitle" class="pay-h"></h2>
-<p class="pay-price"></p>
+<div class="pay-head"><span class="pay-badge"></span><h2 id="payTitle" class="pay-h"></h2><p class="pay-price"></p><ul class="pay-perks"></ul></div>
+<ol class="pay-steps"><li data-s="payForm">1. Thông tin</li><li data-s="payQR">2. Thanh toán</li><li data-s="payDone">3. Hoàn tất</li></ol>
 
 <form id="payForm" class="pay-step" novalidate>
 <label>Họ tên<input name="name" required maxlength="60" autocomplete="name"></label>
@@ -431,18 +458,30 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 (function(){
 // Dán "Web app URL" của Google Apps Script vào đây. Để trống = các nút mở Zalo.
 var AVE_API = 'https://script.google.com/macros/s/AKfycbxiwyKJFi3whKbSm2RJmtk99bW5SWSz43iaSH6Z3o4x0wADrxGTi99u-sHDTJN2cw8B/exec';
-var PLANS = { trial:{t:'Thử 1 video',p:'59.000đ'}, m30:{t:'Gói 30 ngày',p:'1.000.000đ'}, m90:{t:'Gói 90 ngày',p:'2.700.000đ'} };
+var PLANS = {
+  trial:{t:'Thử 1 video',p:'59.000đ',u:'/ 1 video',b:'🎬 Dùng thử',k:['Gửi video ngay trên trang này','Nhận lại video đã edit qua Zalo/email']},
+  m30:{t:'Gói 30 ngày',p:'1.000.000đ',u:'/ 30 ngày',b:'💼 Gói tháng',k:['Tự cài AVE trên máy của bạn','Edit không giới hạn video trong 30 ngày','Kèm video hướng dẫn cài & dùng']},
+  m90:{t:'Gói 90 ngày',p:'2.700.000đ',u:'/ 90 ngày',b:'⭐ Tiết kiệm nhất',k:['Rẻ hơn 300.000đ so với mua lẻ 3 tháng','Edit không giới hạn video trong 90 ngày','Kèm video hướng dẫn + hỗ trợ qua Zalo']}
+};
 var $ = function(q,r){return (r||document).querySelector(q)}, M = $('#pay'), F = $('#payForm');
 var cur = null, timer = null, upDone = true, paid = false, lastFocus = null;
 
 function api(body){ return fetch(AVE_API,{method:'POST',body:JSON.stringify(body)}).then(function(r){return r.json()}).then(function(j){ if(!j.ok) throw new Error(j.error||'Lỗi'); return j; }); }
-function show(id){ ['payForm','payQR','payDone'].forEach(function(x){ $('#'+x).hidden = x!==id; }); }
+function show(id){ var ids=['payForm','payQR','payDone'], i=ids.indexOf(id);
+  ids.forEach(function(x,j){ $('#'+x).hidden = x!==id; var li=$('.pay-steps [data-s='+x+']'); li.className = j===i?'on':(j<i?'ok':''); });
+  $('.pay-perks').hidden = id!=='payForm' || !$('.pay-perks').children.length; }
+function theme(plan){ var p=PLANS[plan], box=$('.pay-box');
+  if(p) box.setAttribute('data-plan',plan); else box.removeAttribute('data-plan');
+  $('.pay-badge').textContent = p?p.b:''; $('#payTitle').textContent = p?p.t:'';
+  var pr=$('.pay-price'); pr.textContent = p?p.p:''; if(p){ var sm=document.createElement('small'); sm.textContent=p.u; pr.appendChild(sm); }
+  var ul=$('.pay-perks'); ul.innerHTML=''; (p?p.k:[]).forEach(function(t){ var li=document.createElement('li'); li.textContent=t; ul.appendChild(li); }); }
+function pop(){ M.classList.remove('is-open'); M.hidden=false; void M.offsetWidth; M.classList.add('is-open'); document.body.style.overflow='hidden'; }
 function open(plan){
   if(!AVE_API){ location.href='https://zalo.me/0947362678'; return; }
   lastFocus = document.activeElement; cur = {plan:plan}; paid=false; upDone=true;
-  $('#payTitle').textContent = PLANS[plan].t; $('.pay-price').textContent = PLANS[plan].p;
+  theme(plan);
   $('.pay-trial').hidden = plan!=='trial'; $('.pay-err').textContent=''; F.querySelector('[type=submit]').disabled=false;
-  show('payForm'); M.hidden=false; document.body.style.overflow='hidden';
+  show('payForm'); pop();
   setTimeout(function(){ F.elements['name'].focus(); }, 50);
 }
 function close(){ M.hidden=true; document.body.style.overflow=''; clearInterval(timer); if(lastFocus) lastFocus.focus(); }
@@ -491,6 +530,7 @@ function upload(file,size){
 }
 function check(){
   return api({action:'status',orderCode:cur.order,token:cur.token}).then(function(r){
+    if(r.plan && PLANS[r.plan] && !cur.plan){ cur.plan=r.plan; theme(r.plan); }
     if(r.status==='PAID'){ paid=true; if(!upDone && r.uploaded===false){ $('.pay-wait span:last-child').textContent='Đã nhận thanh toán ✓ — đang gửi nốt video…'; return; } done(r); }
     else if(r.status==='CANCELLED' || r.status==='EXPIRED'){ clearInterval(timer); $('.pay-wait').innerHTML='Đơn đã '+(r.status==='CANCELLED'?'huỷ':'hết hạn')+'. Đóng và tạo đơn mới nhé.'; }
   }).catch(function(){});
@@ -508,7 +548,7 @@ function done(r){
 // quay lại từ trang payOS (?order=…&t=…)
 var q=new URLSearchParams(location.search);
 if(q.get('order') && q.get('t') && AVE_API){
-  cur={order:q.get('order'),token:q.get('t'),plan:''}; M.hidden=false; document.body.style.overflow='hidden';
+  cur={order:q.get('order'),token:q.get('t'),plan:''}; theme(''); pop();
   $('#payTitle').textContent='Kiểm tra thanh toán'; $('.pay-price').textContent='Đơn #'+cur.order;
   show('payQR'); $('.pay-qrwrap').hidden=true; $('#payLink').hidden=true; $('.pay-info').hidden=true;
   if(q.get('cancel')) $('.pay-wait').innerHTML='Bạn đã huỷ thanh toán. Đóng cửa sổ để chọn lại.'; else poll();
