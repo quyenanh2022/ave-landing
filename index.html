@@ -25,8 +25,8 @@ section[id]{scroll-margin-top:16px}
 .pay[hidden]{display:none}
 .pay{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .pay-box{--pc:#FFE45C;--pc-ink:#111;--pc-rgb:255,228,92;position:relative;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow:auto;background:#16161B;border:1px solid rgba(var(--pc-rgb),.45);border-radius:20px;padding:0 24px 24px;box-sizing:border-box;box-shadow:0 0 0 1px rgba(var(--pc-rgb),.15),0 24px 70px rgba(var(--pc-rgb),.22),0 10px 40px rgba(0,0,0,.6)}
-.pay-box[data-plan=m30]{--pc:#7aa7ff;--pc-ink:#0b1530;--pc-rgb:122,167,255}
-.pay-box[data-plan=m90]{--pc:#3fd07a;--pc-ink:#06210f;--pc-rgb:63,208,122}
+.pay-box[data-theme=m30]{--pc:#7aa7ff;--pc-ink:#0b1530;--pc-rgb:122,167,255}
+.pay-box[data-theme=m90]{--pc:#3fd07a;--pc-ink:#06210f;--pc-rgb:63,208,122}
 .pay-box::before{content:"";position:sticky;top:0;display:block;height:5px;margin:0 -24px;background:var(--pc);z-index:2}
 .pay-head{margin:0 -24px 16px;padding:20px 24px 16px;background:linear-gradient(160deg,rgba(var(--pc-rgb),.26),rgba(var(--pc-rgb),.04) 70%);border-bottom:1px solid rgba(var(--pc-rgb),.25)}
 .pay-badge{display:inline-block;background:var(--pc);color:var(--pc-ink);font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 10px;border-radius:99px;margin-bottom:10px}
@@ -471,7 +471,7 @@ function show(id){ var ids=['payForm','payQR','payDone'], i=ids.indexOf(id);
   ids.forEach(function(x,j){ $('#'+x).hidden = x!==id; var li=$('.pay-steps [data-s='+x+']'); li.className = j===i?'on':(j<i?'ok':''); });
   $('.pay-perks').hidden = id!=='payForm' || !$('.pay-perks').children.length; }
 function theme(plan){ var p=PLANS[plan], box=$('.pay-box');
-  if(p) box.setAttribute('data-plan',plan); else box.removeAttribute('data-plan');
+  if(p) box.setAttribute("data-theme",plan); else box.removeAttribute("data-theme");
   $('.pay-badge').textContent = p?p.b:''; $('#payTitle').textContent = p?p.t:'';
   var pr=$('.pay-price'); pr.textContent = p?p.p:''; if(p){ var sm=document.createElement('small'); sm.textContent=p.u; pr.appendChild(sm); }
   var ul=$('.pay-perks'); ul.innerHTML=''; (p?p.k:[]).forEach(function(t){ var li=document.createElement('li'); li.textContent=t; ul.appendChild(li); }); }
@@ -486,7 +486,7 @@ function open(plan){
 }
 function close(){ M.hidden=true; document.body.style.overflow=''; clearInterval(timer); if(lastFocus) lastFocus.focus(); }
 document.addEventListener('click', function(e){
-  var a = e.target.closest('[data-plan]'); if(a){ e.preventDefault(); open(a.getAttribute('data-plan')); return; }
+  var a = e.target.closest('[data-plan]'); if(a && !M.contains(a)){ e.preventDefault(); open(a.getAttribute('data-plan')); return; }
   if(e.target.closest('[data-close]') || e.target===M){ if(!paid || confirm('Đóng cửa sổ?')) close(); }
 });
 document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !M.hidden) close(); });
