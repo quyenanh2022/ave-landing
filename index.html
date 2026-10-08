@@ -404,7 +404,7 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 
 <footer style="border-top: 1px solid #23232A">
 <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #8E8D87">
-<span>AVE Studio — edit video tự động</span>
+<span>AVE Studio — edit video tự động<br><small style="color:#6E6D68">Trang dùng mã ẩn danh để thống kê lượt xem; chỉ lưu tên/SĐT khi bạn đặt hàng.</small></span>
 <span>Zalo: <a href="https://zalo.me/0947362678" style="color: #C9C8C2">0947 362 678</a></span>
 </div>
 </footer>
@@ -453,6 +453,95 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 </div>
 </div>
 </div>
+<script>
+/* ===== Theo dõi điểm chạm (ẩn danh) → Google Sheet "AVE – Đơn hàng", tab "Điểm chạm" =====
+   Điền ID nếu muốn bắn thêm sự kiện sang Facebook / TikTok / Google (để trống = không dùng). */
+var FB_PIXEL = '', TT_PIXEL = '', GA4_ID = '';
+(function(){
+var API = 'https://script.google.com/macros/s/AKfycbxiwyKJFi3whKbSm2RJmtk99bW5SWSz43iaSH6Z3o4x0wADrxGTi99u-sHDTJN2cw8B/exec';
+function ls(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){ return null; } }
+function ss(k, v){ try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch(e){ return null; } }
+function rid(){ return (Date.now().toString(36) + Math.random().toString(36).slice(2, 10)); }
+var vid = ls('ave_vid') || rid(); ls('ave_vid', vid);
+var sid = ss('ave_sid') || rid(); ss('ave_sid', sid);
+// nguồn: utm_* > mã click quảng cáo > trang giới thiệu
+var q = new URLSearchParams(location.search), ref = '';
+try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch(e){}
+if (ref === location.hostname) ref = '';
+function detect(){
+  if (q.get('utm_source')) return { source: q.get('utm_source').toLowerCase(), medium: q.get('utm_medium') || '', campaign: q.get('utm_campaign') || '' };
+  if (q.get('fbclid')) return { source: 'facebook', medium: /facebook|fb\.|instagram/.test(ref) || !ref ? 'social' : 'click', campaign: '' };
+  if (q.get('ttclid')) return { source: 'tiktok', medium: 'ads', campaign: '' };
+  if (q.get('gclid')) return { source: 'google', medium: 'ads', campaign: '' };
+  if (q.get('zarsrc') || /zalo/.test(ref)) return { source: 'zalo', medium: 'social', campaign: '' };
+  if (!ref) return null;
+  var m = [[/facebook|fb\.com|messenger/, 'facebook'], [/instagram/, 'instagram'], [/tiktok/, 'tiktok'], [/youtube|youtu\.be/, 'youtube'], [/google\./, 'google'], [/bing|coccoc|yahoo/, 'tim_kiem_khac'], [/threads/, 'threads']];
+  for (var i = 0; i < m.length; i++) if (m[i][0].test(ref)) return { source: m[i][1], medium: m[i][1] === 'google' ? 'organic' : 'social', campaign: '' };
+  return { source: ref, medium: 'referral', campaign: '' };
+}
+var now = detect();
+var first = null; try { first = JSON.parse(ls('ave_src') || 'null'); } catch(e){}
+if (!first) { first = now || { source: 'truc_tiep', medium: '', campaign: '' }; ls('ave_src', JSON.stringify(first)); }
+var ua = navigator.userAgent, dev = (/Mobi|Android|iPhone|iPad/.test(ua) ? 'mobile' : 'desktop') + '·' + (/iPhone|iPad|iPod/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS/.test(ua) ? 'Mac' : 'khác');
+var Q = [], seen = {}, timer = null;
+function flush(beacon){
+  if (!Q.length || !API) return;
+  var body = JSON.stringify({ action: 'track', v: vid, s: sid, src: first, dev: dev, now: Date.now(), e: Q.splice(0, 40) });
+  try {
+    if (beacon && navigator.sendBeacon && navigator.sendBeacon(API, body)) return;
+    fetch(API, { method: 'POST', body: body, mode: 'no-cors', keepalive: true }).catch(function(){});
+  } catch(e){}
+}
+function track(n, d, once){
+  if (once) { var k = n + '|' + (d || ''); if (seen[k]) return; seen[k] = 1; }
+  Q.push({ n: n, d: d == null ? '' : String(d).slice(0, 200), t: Date.now() });
+  pix(n, d);
+  clearTimeout(timer); timer = setTimeout(flush, Q.length >= 10 ? 0 : 4000);
+}
+window.aveTrack = track; track.vid = vid; track.src = first; track.flush = flush;
+// --- pixel quảng cáo (tuỳ chọn) ---
+function pix(n, d){
+  var price = { trial: 59000, m30: 1000000, m90: 2700000 }[d];
+  if (window.fbq) { if (n === 'mo_thanh_toan') fbq('track', 'InitiateCheckout', { value: price, currency: 'VND', content_name: d }); if (n === 'mua_xong') fbq('track', 'Purchase', { value: price, currency: 'VND', content_name: d }); if (n === 'bam_zalo') fbq('track', 'Contact'); if (n === 'xem_muc' && d === 'bang-gia') fbq('track', 'ViewContent', { content_name: 'bang-gia' }); }
+  if (window.ttq) { if (n === 'mo_thanh_toan') ttq.track('InitiateCheckout', { value: price, currency: 'VND' }); if (n === 'mua_xong') ttq.track('CompletePayment', { value: price, currency: 'VND' }); if (n === 'bam_zalo') ttq.track('Contact'); }
+  if (window.gtag) { if (n === 'mo_thanh_toan') gtag('event', 'begin_checkout', { value: price, currency: 'VND' }); if (n === 'mua_xong') gtag('event', 'purchase', { value: price, currency: 'VND' }); if (n === 'bam_zalo') gtag('event', 'contact'); }
+}
+function load(src){ var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
+if (FB_PIXEL) { !function(f,b,e,v,n){ if(f.fbq) return; n = f.fbq = function(){ n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if(!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; load(v); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', FB_PIXEL); fbq('track', 'PageView'); }
+if (TT_PIXEL) { !function(w){ var t = w.ttq = w.ttq || []; ['page','track','identify'].forEach(function(m){ t[m] = t[m] || function(){ t.push([m].concat([].slice.call(arguments))); }; }); load('https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=' + TT_PIXEL + '&lib=ttq'); }(window); ttq.page(); }
+if (GA4_ID) { load('https://www.googletagmanager.com/gtag/js?id=' + GA4_ID); window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', GA4_ID); }
+// --- các điểm chạm ---
+track('xem_trang', location.pathname + (now ? ' ← ' + now.source : (ref ? ' ← ' + ref : '')));
+var marks = [25, 50, 75, 100];
+addEventListener('scroll', function(){
+  var h = document.documentElement, p = (h.scrollTop + innerHeight) / h.scrollHeight * 100;
+  while (marks.length && p >= marks[0] - 2) track('cuon_trang', marks.shift() + '%', true);
+}, { passive: true });
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function(es){ es.forEach(function(x){ if (x.isIntersecting) { track('xem_muc', x.target.id, true); io.unobserve(x.target); } }); }, { threshold: 0.35 });
+  document.querySelectorAll('section[id]').forEach(function(s){ if (s.id !== 'top') io.observe(s); });
+}
+document.querySelectorAll('video').forEach(function(v){
+  var name = (v.getAttribute('src') || '').split('/').pop().replace(/\.\w+$/, '') || 'video', half = false;
+  v.addEventListener('play', function(){ track('xem_video', name, true); });
+  v.addEventListener('timeupdate', function(){ if (!v.duration) return; var r = v.currentTime / v.duration; if (!half && r >= 0.5) { half = true; track('video_50', name, true); } if (r >= 0.95) track('video_het', name, true); });
+  v.addEventListener('ended', function(){ track('video_het', name, true); });
+});
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[href]'); if (!a) return;
+  var h = a.getAttribute('href');
+  if (/zalo\.me/.test(h)) var w = a.closest('section[id],footer,#pay'); track('bam_zalo', w ? (w.id || w.tagName.toLowerCase()) : 'trang');
+  else if (/^https?:/.test(h) && a.hostname !== location.hostname && a.id !== 'payLink') track('bam_link', a.hostname);
+}, true);
+document.querySelectorAll('details').forEach(function(d){ d.addEventListener('toggle', function(){ if (d.open) var sm = d.querySelector('summary'); track('mo_hoi_dap', ((sm && sm.firstChild && sm.firstChild.textContent) || '').trim().slice(0, 60), true); }); });
+var t0 = Date.now(), active = 0, last = Date.now();
+document.addEventListener('visibilitychange', function(){
+  if (document.visibilityState === 'hidden') { active += Date.now() - last; track('thoi_gian', Math.round(active / 1000) + 's'); clearTimeout(timer); flush(true); }
+  else last = Date.now();
+});
+addEventListener('pagehide', function(){ flush(true); });
+})();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
@@ -476,15 +565,17 @@ function theme(plan){ var p=PLANS[plan], box=$('.pay-box');
   var pr=$('.pay-price'); pr.textContent = p?p.p:''; if(p){ var sm=document.createElement('small'); sm.textContent=p.u; pr.appendChild(sm); }
   var ul=$('.pay-perks'); ul.innerHTML=''; (p?p.k:[]).forEach(function(t){ var li=document.createElement('li'); li.textContent=t; ul.appendChild(li); }); }
 function pop(){ M.classList.remove('is-open'); M.hidden=false; void M.offsetWidth; M.classList.add('is-open'); document.body.style.overflow='hidden'; }
+var T = function(n, d){ if (window.aveTrack) aveTrack(n, d); };
 function open(plan){
   if(!AVE_API){ location.href='https://zalo.me/0947362678'; return; }
   lastFocus = document.activeElement; cur = {plan:plan}; paid=false; upDone=true;
   theme(plan);
   $('.pay-trial').hidden = plan!=='trial'; $('.pay-err').textContent=''; F.querySelector('[type=submit]').disabled=false;
-  show('payForm'); pop();
+  show('payForm'); pop(); T('mo_thanh_toan', plan);
+  F.addEventListener('input', function once(){ T('dien_form', cur && cur.plan); F.removeEventListener('input', once); });
   setTimeout(function(){ F.elements['name'].focus(); }, 50);
 }
-function close(){ M.hidden=true; document.body.style.overflow=''; clearInterval(timer); if(lastFocus) lastFocus.focus(); }
+function close(){ if(!M.hidden) T('dong_popup', (cur && cur.plan || '') + ' @' + (['payForm','payQR','payDone'].filter(function(x){ return !$('#'+x).hidden; })[0] || '')); M.hidden=true; document.body.style.overflow=''; clearInterval(timer); if(lastFocus) lastFocus.focus(); }
 document.addEventListener('click', function(e){
   var a = e.target.closest('[data-plan]'); if(a && !M.contains(a)){ e.preventDefault(); open(a.getAttribute('data-plan')); return; }
   if(e.target.closest('[data-close]') || e.target===M){ if(!paid || confirm('Đóng cửa sổ?')) close(); }
@@ -495,7 +586,8 @@ F.addEventListener('submit', function(e){
   e.preventDefault();
   var err = $('.pay-err'), btn = F.querySelector('[type=submit]'), file = F.file.files[0];
   var d = { action:'create', plan:cur.plan, name:F.elements['name'].value.trim(), phone:F.phone.value.replace(/[^0-9+]/g,''), email:F.email.value.trim(),
-            note:F.note.value.trim(), link:F.link.value.trim() };
+            note:F.note.value.trim(), link:F.link.value.trim(),
+            vid: window.aveTrack && aveTrack.vid, src: window.aveTrack && aveTrack.src };
   if(!d.name || d.phone.length<9){ err.textContent='Vui lòng nhập họ tên và số điện thoại/Zalo.'; return; }
   if(cur.plan==='trial' && !file && !d.link){ err.textContent='Vui lòng chọn video hoặc dán link video.'; return; }
   if(file){ d.fileName=file.name; d.fileSize=file.size; d.fileType=file.type||'video/mp4'; }
@@ -505,7 +597,7 @@ F.addEventListener('submit', function(e){
     history.replaceState(null,'','?order='+o.orderCode+'&t='+o.token+'#mua');
     $('#qr').innerHTML=''; new QRCode($('#qr'),{text:o.qrCode,width:220,height:220,correctLevel:QRCode.CorrectLevel.M});
     $('.pay-info').innerHTML = '<dt>Số tiền</dt><dd>'+o.amount.toLocaleString('vi-VN')+'đ</dd><dt>Nội dung</dt><dd>'+o.description+'</dd>'+(o.accountName?'<dt>Người nhận</dt><dd>'+o.accountName+'</dd>':'');
-    $('#payLink').href=o.checkoutUrl; show('payQR');
+    $('#payLink').href=o.checkoutUrl; $('#payLink').onclick=function(){ T('mo_payos', cur.plan); }; show('payQR');
     if(file){ upDone=false; upload(file,o.chunkSize); } else { $('.pay-up').hidden=true; }
     poll();
   }).catch(function(x){ err.textContent=x.message; }).then(function(){ btn.disabled=false; btn.textContent='Tiếp tục thanh toán'; });
@@ -532,11 +624,12 @@ function check(){
   return api({action:'status',orderCode:cur.order,token:cur.token}).then(function(r){
     if(r.plan && PLANS[r.plan] && !cur.plan){ cur.plan=r.plan; theme(r.plan); }
     if(r.status==='PAID'){ paid=true; if(!upDone && r.uploaded===false){ $('.pay-wait span:last-child').textContent='Đã nhận thanh toán ✓ — đang gửi nốt video…'; return; } done(r); }
-    else if(r.status==='CANCELLED' || r.status==='EXPIRED'){ clearInterval(timer); $('.pay-wait').innerHTML='Đơn đã '+(r.status==='CANCELLED'?'huỷ':'hết hạn')+'. Đóng và tạo đơn mới nhé.'; }
+    else if(r.status==='CANCELLED' || r.status==='EXPIRED'){ clearInterval(timer); T('huy_don', (cur.plan||'') + ' ' + r.status); $('.pay-wait').innerHTML='Đơn đã '+(r.status==='CANCELLED'?'huỷ':'hết hạn')+'. Đóng và tạo đơn mới nhé.'; }
   }).catch(function(){});
 }
 function poll(){ clearInterval(timer); var n=0; timer=setInterval(function(){ if(++n>400){clearInterval(timer);return;} check(); },3000); check(); }
 function done(r){
+  if (window.aveTrack && !done._t) { done._t = 1; aveTrack('mua_xong', r.plan || cur.plan); }
   clearInterval(timer); show('payDone'); history.replaceState(null,'',location.pathname);
   var msg=$('.pay-done-msg'), dl=$('.pay-dl'); dl.innerHTML='';
   if(r.plan==='trial'){ msg.innerHTML='<b>Đã nhận thanh toán và video.</b><br>Video sau khi edit sẽ được gửi lại qua Zalo/email của bạn.'; }
