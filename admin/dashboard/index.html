@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AVE Admin · Realtime</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0E10;--card:#16161B;--line:#26262E;--ink:#F2F1EC;--ink2:#B3B2AC;--mute:#7E7D78;--acc:#FFE45C;--acc-ink:#111;--ok:#3fd07a;--warn:#f5a524;--bad:#ff6b6b;--bar:#FFE45C;--bar2:#5b5a52}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Be Vietnam Pro',system-ui,sans-serif}
+a{color:var(--acc)}
+.wrap{max-width:1280px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:18px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:18px}
+.logo b{background:var(--acc);color:var(--acc-ink);padding:2px 8px;border-radius:6px}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);margin-left:auto}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(63,208,122,.6);animation:pulse 2s infinite}
+.dot.off{background:var(--mute);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(63,208,122,0)}100%{box-shadow:0 0 0 0 rgba(63,208,122,0)}}
+button,.btn{font:inherit;font-weight:600;font-size:13px;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:10px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:#44434c}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;border-radius:0;padding:7px 12px;color:var(--ink2)}
+.seg button.on{background:var(--acc);color:var(--acc-ink)}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi .l{font-size:12.5px;color:var(--ink2);font-weight:600}
+.kpi .v{font-size:30px;font-weight:800;line-height:1.15;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12px;color:var(--mute)}
+.kpi.hot .v{color:var(--acc)}
+.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.card h2{margin:0 0 12px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h2 small{font-weight:500;color:var(--mute);font-size:12px}
+.mt{margin-top:14px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;color:var(--mute);font-weight:600;font-size:12px;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid #1f1f26;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.empty{color:var(--mute);font-size:13px;padding:10px 0}
+.feed{max-height:420px;overflow:auto;margin:0;padding:0;list-style:none}
+.feed li{display:grid;grid-template-columns:62px 1fr;gap:8px;padding:7px 0;border-bottom:1px solid #1f1f26;font-size:13.5px}
+.feed li.new{animation:flash 2s}
+@keyframes flash{from{background:rgba(255,228,92,.14)}to{background:transparent}}
+.feed time{color:var(--mute);font-variant-numeric:tabular-nums;font-size:12.5px}
+.who{color:var(--mute);font-size:12px}
+.tag{display:inline-block;font-size:11.5px;font-weight:600;padding:1px 7px;border-radius:99px;background:#24242b;color:var(--ink2);white-space:nowrap}
+.tag.y{background:var(--acc);color:var(--acc-ink)}
+.tag.g{background:rgba(63,208,122,.16);color:var(--ok)}
+.tag.r{background:rgba(255,107,107,.14);color:var(--bad)}
+.on-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:420px;overflow:auto}
+.on-list li{border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13.5px}
+.on-list .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fun{display:grid;gap:8px}
+.frow{display:grid;grid-template-columns:120px 1fr 150px;align-items:center;gap:10px;font-size:13.5px}
+.ftrack{height:26px;background:#1d1d23;border-radius:4px;overflow:hidden}
+.fbar{height:100%;background:var(--bar);border-radius:0 4px 4px 0;min-width:2px;transition:width .5s}
+.frow .n{text-align:right;font-variant-numeric:tabular-nums}
+.frow .n small{color:var(--mute);display:block;font-size:11.5px}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:220px}
+.tip{position:absolute;pointer-events:none;background:#0b0b0d;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12.5px;white-space:nowrap;transform:translate(-50%,-100%);display:none;z-index:2}
+.steps{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12.5px}
+.steps .ar{color:var(--mute)}
+.login{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
+.login h1{margin:0 0 6px;font-size:20px}
+.login p{color:var(--ink2);font-size:13.5px;margin:0 0 16px}
+.login input{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid #3a3a44;border-radius:10px;padding:11px 12px;margin-bottom:12px}
+.login .go{width:100%;background:var(--acc);color:var(--acc-ink);border:0;padding:12px;font-size:15px}
+.err{color:var(--bad);font-size:13px;min-height:18px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:860px){.two{grid-template-columns:1fr}.frow{grid-template-columns:96px 1fr 84px}}
+td.who{white-space:nowrap}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+var API = 'https://script.google.com/macros/s/AKfycbxiwyKJFi3whKbSm2RJmtk99bW5SWSz43iaSH6Z3o4x0wADrxGTi99u-sHDTJN2cw8B/exec';
+var POLL = 10000;
+function ls(k, v){ try { if (v === undefined) return localStorage.getItem(k); if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){ return null; } }
+ls('ave_admin', '1'); // máy này là máy admin → trang chính không đếm lượt xem của anh
+var key = ls('ave_admin_key') || '', S = { period: 'd30', data: null, seen: {}, timer: 0, busy: false, fails: 0 };
+var $ = function(q){ return document.querySelector(q); }, app = $('#app');
+var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+var nf = function(n){ return Number(n || 0).toLocaleString('vi-VN'); };
+var money = function(n){ n = Number(n || 0); return n >= 1e6 ? (n / 1e6).toLocaleString('vi-VN', { maximumFractionDigits: 2 }) + ' tr' : nf(n) + 'đ'; };
+var hm = function(t){ var d = new Date(t); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ':' + ('0' + d.getSeconds()).slice(-2); };
+var ago = function(t){ var s = Math.max(0, Math.round((Date.now() - t) / 1000)); return s < 60 ? s + ' giây trước' : s < 3600 ? Math.round(s / 60) + ' phút trước' : Math.round(s / 3600) + ' giờ trước'; };
+var PLAN = { trial: 'Dùng thử', m30: 'Gói 30 ngày', m90: 'Gói 90 ngày' };
+var SEC = { review: 'Review', 'tinh-nang': 'Tính năng', 'cach-dung': 'Cách dùng', 'huong-dan': 'Hướng dẫn', 'bang-gia': 'Bảng giá', 'hoi-dap': 'Hỏi đáp', 'lien-he': 'Liên hệ' };
+function label(n, d){
+  switch (n) {
+    case 'xem_trang': return '👀 Vào trang' + (d && d.indexOf('←') > -1 ? ' <span class="who">' + esc(d.split('←')[1]) + '</span>' : '');
+    case 'cuon_trang': return '↕ Cuộn tới ' + esc(d);
+    case 'xem_muc': return d === 'bang-gia' ? '💰 <b>Xem bảng giá</b>' : '📄 Xem mục ' + esc(SEC[d] || d);
+    case 'xem_video': return '▶ Bấm xem video <b>' + esc(d) + '</b>';
+    case 'video_50': return '▶ Xem ½ video ' + esc(d);
+    case 'video_het': return '✅ Xem hết video <b>' + esc(d) + '</b>';
+    case 'mo_thanh_toan': return '🛒 <b>Mở thanh toán ' + esc(PLAN[d] || d) + '</b>';
+    case 'dien_form': return '✍ Bắt đầu điền form';
+    case 'mo_payos': return '💳 Mở trang payOS';
+    case 'dong_popup': return '✕ Đóng popup <span class="who">' + esc(d) + '</span>';
+    case 'huy_don': return '⚠ Huỷ / hết hạn đơn';
+    case 'bam_zalo': return '💬 <b>Bấm Zalo</b>';
+    case 'bam_link': return '↗ Bấm link ' + esc(d);
+    case 'mo_hoi_dap': return '❓ Hỏi đáp: ' + esc(d);
+    case 'thoi_gian': return '⏱ Rời trang sau ' + esc(d);
+    case 'tao_don': return '🧾 <b>TẠO ĐƠN ' + esc(PLAN[d] || d) + '</b>';
+    case 'da_thanh_toan': return '🎉 <b style="color:var(--ok)">ĐÃ THANH TOÁN ' + esc(PLAN[d] || d) + '</b>';
+  }
+  return esc(n + ' ' + d);
+}
+function short(v){ return String(v || '').slice(-5).toUpperCase(); }
+
+// ---------- đăng nhập ----------
+function login(msg){
+  clearTimeout(S.timer);
+  app.innerHTML = '<form class="login" id="lf"><h1>AVE Admin</h1><p>Bảng theo dõi khách realtime. Nhập mật khẩu ADMIN_KEY đã đặt trong Apps Script.</p>' +
+    '<label class="sr" for="pw">Mật khẩu</label><input id="pw" type="password" autocomplete="current-password" placeholder="Mật khẩu admin">' +
+    '<div class="err">' + esc(msg || '') + '</div><button class="go" type="submit">Vào bảng điều khiển</button></form>';
+  $('#pw').focus();
+  $('#lf').onsubmit = function(e){ e.preventDefault(); key = $('#pw').value.trim(); if (!key) return; ls('ave_admin_key', key); S.data = null; load(true); };
+}
+function api(){
+  return fetch(API, { method: 'POST', body: JSON.stringify({ action: 'admin', key: key }) }).then(function(r){ return r.json(); });
+}
+function load(first){
+  if (S.busy) return; S.busy = true;
+  if (first) app.innerHTML = '<div class="wrap"><p class="empty">Đang tải…</p></div>';
+  api().then(function(j){
+    S.busy = false;
+    if (!j.ok) { if (/mật khẩu|ADMIN_KEY/i.test(j.error || '')) { ls('ave_admin_key', null); return login(j.error); } throw new Error(j.error); }
+    S.fails = 0; var prev = S.data; S.data = j; render(prev);
+  }).catch(function(e){ S.busy = false; S.fails++; var l = $('#liveTxt'); if (l) { l.textContent = 'Mất kết nối, thử lại…'; $('#liveDot').className = 'dot off'; } else if (first) login('Không kết nối được: ' + e.message); })
+  .then(function(){ schedule(); });
+}
+function schedule(){ clearTimeout(S.timer); if (!key) return; S.timer = setTimeout(function(){ if (document.visibilityState === 'visible') load(); else schedule(); }, S.fails ? Math.min(60000, POLL * (S.fails + 1)) : POLL); }
+document.addEventListener('visibilitychange', function(){ if (document.visibilityState === 'visible' && key && S.data) load(); });
+
+// ---------- vẽ ----------
+function kpi(l, v, s, hot){ return '<div class="kpi' + (hot ? ' hot' : '') + '"><div class="l">' + l + '</div><div class="v">' + v + '</div><div class="s">' + (s || '&nbsp;') + '</div></div>'; }
+function render(prev){
+  var d = S.data, st = d.stats, T = st.today, P = S.period;
+  var first = !$('#dash');
+  if (first) {
+    app.innerHTML = '<div class="wrap" id="dash"><header><div class="logo"><b>AVE</b> Admin · Realtime</div>' +
+      '<span class="live"><span id="liveDot" class="dot"></span><span id="liveTxt"></span></span>' +
+      '<a class="btn" href="/" target="_blank" rel="noopener">Mở trang ↗</a><button id="out" type="button">Đăng xuất</button></header>' +
+      '<div id="kpis" class="grid kpis"></div>' +
+      '<div class="grid two"><section class="card"><h2>🟢 Đang trên trang <small>có hành động trong 5 phút</small></h2><div id="online"></div></section>' +
+      '<section class="card"><h2>⚡ Diễn biến trực tiếp <small>mới nhất ở trên</small></h2><ul class="feed" id="feed"></ul></section></div>' +
+      '<section class="card mt"><h2>Phễu chuyển đổi <span class="seg" id="seg">' +
+      [['d1', 'Hôm nay'], ['d7', '7 ngày'], ['d30', '30 ngày'], ['all', 'Tất cả']].map(function(x){ return '<button type="button" data-p="' + x[0] + '">' + x[1] + '</button>'; }).join('') +
+      '</span><small>số khách (mỗi người đếm 1 lần)</small></h2><div id="funnel" class="fun"></div></section>' +
+      '<div class="grid two mt"><section class="card"><h2>Khách theo ngày <small>14 ngày · rê chuột xem chi tiết</small></h2><div class="chart" id="days"></div></section>' +
+      '<section class="card"><h2>Đơn hàng gần nhất</h2><div class="tbl" id="orders"></div></section></div>' +
+      '<section class="card mt"><h2>Theo nguồn <small>30 ngày · nguồn = nơi khách đến lần đầu</small></h2><div class="tbl" id="sources"></div></section>' +
+      '<section class="card mt"><h2>Hành trình khách đặt đơn <small>20 đơn gần nhất</small></h2><div class="tbl" id="journeys"></div></section>' +
+      '<div class="grid two mt"><section class="card"><h2>Video trên trang <small>30 ngày</small></h2><div class="tbl" id="videos"></div></section>' +
+      '<section class="card"><h2>Gói khách quan tâm <small>30 ngày</small></h2><div class="tbl" id="plans"></div></section></div>' +
+      '<div class="grid two mt"><section class="card"><h2>Khách đọc tới đâu <small>30 ngày</small></h2><div class="tbl" id="reach"></div></section>' +
+      '<section class="card"><h2>Thiết bị <small>30 ngày</small></h2><div class="tbl" id="devices"></div></section></div>' +
+      '<section class="card mt" id="camWrap" hidden><h2>Chiến dịch (utm_campaign) <small>30 ngày</small></h2><div class="tbl" id="cams"></div></section>' +
+      '<p class="who mt">Lượt xem từ máy này không được tính. Mở trang trên máy khác của anh với đuôi <code>?ave_admin=1</code> để loại trừ máy đó.</p></div>';
+    $('#out').onclick = function(){ ls('ave_admin_key', null); key = ''; login('Đã đăng xuất.'); };
+    $('#seg').onclick = function(e){ var b = e.target.closest('[data-p]'); if (!b) return; S.period = b.dataset.p; render(); };
+  }
+  $('#liveDot').className = 'dot'; $('#liveTxt').textContent = 'Realtime · cập nhật ' + hm(d.now);
+  document.querySelectorAll('#seg button').forEach(function(b){ b.className = b.dataset.p === P ? 'on' : ''; });
+  // KPI
+  $('#kpis').innerHTML = kpi('Đang trên trang', nf(d.online.length), 'trong 5 phút qua', d.online.length > 0) +
+    kpi('Khách hôm nay', nf(T.visitors), nf(T.sessions) + ' lượt ghé') + kpi('Xem bảng giá hôm nay', nf(T.price), 'khách') +
+    kpi('Mở thanh toán hôm nay', nf(T.checkout), nf(T.zalo) + ' khách bấm Zalo') + kpi('Đơn hôm nay', nf(T.orders), nf(T.paid) + ' đã thanh toán', T.paid > 0) +
+    kpi('Doanh thu hôm nay', money(T.revenue), '30 ngày: ' + money(st.d30.revenue), T.revenue > 0);
+  // online
+  $('#online').innerHTML = d.online.length ? '<ul class="on-list">' + d.online.map(function(o){
+    return '<li><div class="top"><span class="tag y">#' + short(o.v) + '</span><span class="tag">' + esc(o.src || 'truc_tiep') + (o.cam ? ' · ' + esc(o.cam) : '') + '</span><span class="who">' + esc(o.dev) + '</span><span class="who" style="margin-left:auto">' + ago(o.last) + '</span></div>' +
+      '<div style="margin-top:4px">' + (o.ev ? label(o.ev, o.d) : 'Vừa vào') + (o.sec ? ' <span class="who">· đang ở ' + esc(SEC[o.sec] || o.sec) + '</span>' : '') + ' <span class="who">· ' + o.n + ' hành động</span></div></li>';
+  }).join('') + '</ul>' : '<p class="empty">Chưa có ai trên trang lúc này.</p>';
+  // feed
+  var fresh = {};
+  $('#feed').innerHTML = d.feed.length ? d.feed.map(function(e){
+    var k = e.t + e.v + e.n + e.d, isNew = prev && !S.seen[k]; fresh[k] = 1;
+    return '<li' + (isNew ? ' class="new"' : '') + '><time>' + hm(e.t) + '</time><div>' + label(e.n, e.d) + '<div class="who">#' + short(e.v) + ' · ' + esc(e.src || 'truc_tiep') + (e.dev ? ' · ' + esc(e.dev) : '') + (e.o ? ' · đơn ' + esc(e.o) : '') + '</div></div></li>';
+  }).join('') : '<li class="empty">Chưa có dữ liệu.</li>';
+  S.seen = fresh;
+  // phễu
+  var F = st.funnel, base = F[0][P] || 0;
+  $('#funnel').innerHTML = F.map(function(f, i){
+    var v = f[P] || 0, w = base ? v / base * 100 : 0, prevV = i ? (F[i - 1][P] || 0) : 0;
+    return '<div class="frow" title="' + esc(f.name) + ': ' + nf(v) + ' khách"><span>' + esc(f.name) + '</span><div class="ftrack"><div class="fbar" style="width:' + (v ? Math.max(w, .8) : 0) + '%"></div></div>' +
+      '<span class="n"><b>' + nf(v) + '</b><small>' + (i === 0 ? '100%' : base ? (v / base * 100).toFixed(1) + '%' : '–') + (i > 0 && prevV ? ' · ' + (v / prevV * 100).toFixed(0) + '% bước trước' : '') + '</small></span></div>';
+  }).join('');
+  days(st.days);
+  // đơn hàng
+  $('#orders').innerHTML = st.orders.length ? '<table><thead><tr><th>Lúc</th><th>Khách</th><th>Gói</th><th>Nguồn</th><th>Trạng thái</th><th class="n">Tiền</th></tr></thead><tbody>' + st.orders.slice(0, 12).map(function(o){
+    var ok = /THANH TOÁN/i.test(o.status) && !/chờ/i.test(o.status);
+    return '<tr><td class="who">' + (o.t ? new Date(o.t).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '') + '</td><td>' + esc(o.name) + '</td><td>' + esc(o.plan) + '</td><td>' + esc(o.src || '–') + '</td><td><span class="tag ' + (ok ? 'g' : /huỷ|hạn/i.test(o.status) ? 'r' : '') + '">' + esc(o.status || '–') + '</span></td><td class="n">' + money(o.amount) + '</td></tr>';
+  }).join('') + '</tbody></table>' : '<p class="empty">Chưa có đơn.</p>';
+  // nguồn
+  var tb = function(id, head, rows, empty){ $(id).innerHTML = rows.length ? '<table><thead><tr>' + head.map(function(h, i){ return '<th' + (i ? ' class="n"' : '') + '>' + h + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function(r){ return '<tr>' + r.map(function(c, i){ return '<td' + (i ? ' class="n"' : '') + '>' + c + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table>' : '<p class="empty">' + (empty || 'Chưa có dữ liệu.') + '</p>'; };
+  var pc = function(a, b){ return b ? (a / b * 100).toFixed(1) + '%' : '–'; };
+  tb('#sources', ['Nguồn', 'Khách', 'Xem video', 'Xem giá', 'Mở thanh toán', 'Tạo đơn', 'Đã TT', 'Doanh thu', 'Tỉ lệ mua'], st.sources.map(function(s){ return ['<b>' + esc(s.src) + '</b>', nf(s.visitors), nf(s.video), nf(s.price), nf(s.checkout), nf(s.orders), nf(s.paid), money(s.revenue), pc(s.paid, s.visitors)]; }));
+  $('#camWrap').hidden = !st.campaigns.length;
+  tb('#cams', ['Chiến dịch', 'Nguồn', 'Khách', 'Mở thanh toán', 'Tạo đơn', 'Đã TT', 'Doanh thu'], st.campaigns.map(function(c){ return [esc(c.cam), esc(c.src), nf(c.visitors), nf(c.checkout), nf(c.orders), nf(c.paid), money(c.revenue)]; }));
+  // hành trình
+  $('#journeys').innerHTML = st.journeys.length ? '<table><thead><tr><th>Đơn</th><th>Nguồn</th><th>Các điểm chạm</th><th class="n">Lần ghé</th><th class="n">Tới khi đặt</th></tr></thead><tbody>' + st.journeys.map(function(j){
+    var steps = [], last = ''; j.steps.forEach(function(s){ var l = label(s.n, s.d).replace(/<span class="who">.*?<\/span>/g, ''); if (l !== last) steps.push(l); last = l; });
+    var h = (j.at - j.first) / 36e5, dur = h < 1 ? Math.round(h * 60) + ' phút' : h < 48 ? Math.round(h) + ' giờ' : Math.round(h / 24) + ' ngày';
+    return '<tr><td><b>' + esc(j.order) + '</b><div><span class="tag ' + (j.paid ? 'g' : '') + '">' + (j.paid ? 'Đã thanh toán' : 'Chưa TT') + '</span> <span class="who">' + esc(PLAN[j.plan] || j.plan) + '</span></div></td><td>' + esc(j.src) + '</td><td><div class="steps">' + steps.slice(-14).join('<span class="ar">→</span>') + '</div></td><td class="n">' + j.visits + '</td><td class="n">' + dur + '</td></tr>';
+  }).join('') + '</tbody></table>' : '<p class="empty">Chưa có đơn nào có dữ liệu hành trình.</p>';
+  tb('#videos', ['Video', 'Bấm xem', 'Xem ½', 'Xem hết', '% xem hết'], st.videos.map(function(v){ return [esc(v.name), nf(v.play), nf(v.half), nf(v.full), pc(v.full, v.play)]; }));
+  tb('#plans', ['Gói', 'Mở thanh toán', 'Tạo đơn', 'Đã TT', 'Doanh thu'], st.plans.map(function(p){ return [esc(p.name), nf(p.checkout), nf(p.orders), nf(p.paid), money(p.revenue)]; }));
+  var v30 = st.d30.visitors;
+  tb('#reach', ['Mốc', 'Khách', '% khách'], st.scroll.map(function(s){ return ['Cuộn ' + s.k, nf(s.visitors), pc(s.visitors, v30)]; }).concat(st.sections.map(function(s){ return ['Thấy mục ' + esc(SEC[s.sec] || s.sec), nf(s.visitors), pc(s.visitors, v30)]; })));
+  tb('#devices', ['Thiết bị', 'Khách', 'Đã TT'], st.devices.map(function(x){ return [esc(x.dev), nf(x.visitors), nf(x.paid)]; }));
+}
+function days(D){
+  var box = $('#days'), W = Math.max(300, box.clientWidth || 640), H = 220, L = 34, B = 26, top = 12, n = D.length, gap = 2;
+  var max = Math.max(1, Math.max.apply(null, D.map(function(x){ return x.visitors; })));
+  var nice = max <= 4 ? 4 : max <= 10 ? 10 : Math.ceil(max / 10) * 10, bw = (W - L) / n;
+  var y = function(v){ return top + (H - top - B) * (1 - v / nice); };
+  var g = ''; for (var i = 0; i <= 2; i++) { var v = nice * i / 2, yy = y(v); g += '<line x1="' + L + '" x2="' + W + '" y1="' + yy + '" y2="' + yy + '" stroke="#26262E"/><text x="' + (L - 6) + '" y="' + (yy + 4) + '" fill="#7E7D78" font-size="11" text-anchor="end">' + v + '</text>'; }
+  var bars = D.map(function(x, i){
+    var x0 = L + i * bw + gap, w = Math.max(2, bw - gap * 2), h = Math.max(0, (H - B) - y(x.visitors)), yy = y(x.visitors), dd = x.d.slice(8) + '/' + x.d.slice(5, 7);
+    var r = Math.min(4, w / 2, h);
+    var path = h > 0 ? 'M' + x0 + ',' + (H - B) + 'V' + (yy + r) + 'Q' + x0 + ',' + yy + ' ' + (x0 + r) + ',' + yy + 'H' + (x0 + w - r) + 'Q' + (x0 + w) + ',' + yy + ' ' + (x0 + w) + ',' + (yy + r) + 'V' + (H - B) + 'Z' : '';
+    return '<g data-i="' + i + '"><rect x="' + (L + i * bw) + '" y="0" width="' + bw + '" height="' + H + '" fill="transparent"/>' + (path ? '<path d="' + path + '" fill="' + (i === n - 1 ? '#FFE45C' : '#BFA93F') + '"/>' : '') +
+      (x.paid ? '<circle cx="' + (x0 + w / 2) + '" cy="' + (yy - 9) + '" r="4" fill="#3fd07a"/>' : '') +
+      ((i % 2 === n % 2 || n < 8) ? '<text x="' + (x0 + w / 2) + '" y="' + (H - 8) + '" fill="#7E7D78" font-size="11" text-anchor="middle">' + dd + '</text>' : '') + '</g>';
+  }).join('');
+  box.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Số khách theo ngày, 14 ngày gần nhất">' + g + '<line x1="' + L + '" x2="' + W + '" y1="' + (H - B) + '" y2="' + (H - B) + '" stroke="#3a3a44"/>' + bars + '</svg><div class="tip" id="tip"></div>' +
+    '<div class="who" style="margin-top:6px">Cột = số khách · <span style="color:var(--ok)">●</span> = ngày có đơn đã thanh toán</div>';
+  var tip = $('#tip');
+  box.querySelectorAll('g[data-i]').forEach(function(el){
+    el.addEventListener('mousemove', function(ev){ var x = D[+el.dataset.i], rc = box.getBoundingClientRect();
+      tip.innerHTML = '<b>' + x.d.split('-').reverse().join('/') + '</b><br>' + nf(x.visitors) + ' khách · ' + nf(x.sessions) + ' lượt ghé<br>' + nf(x.checkout) + ' mở thanh toán · ' + nf(x.orders) + ' đơn<br>' + nf(x.paid) + ' đã TT · ' + money(x.revenue);
+      tip.style.display = 'block'; tip.style.left = Math.min(rc.width - 90, Math.max(90, ev.clientX - rc.left)) + 'px'; tip.style.top = (ev.clientY - rc.top - 10) + 'px'; });
+    el.addEventListener('mouseleave', function(){ tip.style.display = 'none'; });
+  });
+}
+var rz; addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(function(){ if (S.data && $('#days')) days(S.data.stats.days); }, 200); });
+if (key) load(true); else login();
+})();
+</script>
+</body>
+</html>
