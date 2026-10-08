@@ -530,7 +530,7 @@ document.querySelectorAll('video').forEach(function(v){
 document.addEventListener('click', function(e){
   var a = e.target.closest('a[href]'); if (!a) return;
   var h = a.getAttribute('href');
-  if (/zalo\.me/.test(h)) var w = a.closest('section[id],footer,#pay'); track('bam_zalo', w ? (w.id || w.tagName.toLowerCase()) : 'trang');
+  if (/zalo\.me/.test(h)) { var w = a.closest('section[id],footer,#pay'); track('bam_zalo', w ? (w.id || w.tagName.toLowerCase()) : 'trang'); }
   else if (/^https?:/.test(h) && a.hostname !== location.hostname && a.id !== 'payLink') track('bam_link', a.hostname);
 }, true);
 document.querySelectorAll('details').forEach(function(d){ d.addEventListener('toggle', function(){ if (d.open) var sm = d.querySelector('summary'); track('mo_hoi_dap', ((sm && sm.firstChild && sm.firstChild.textContent) || '').trim().slice(0, 60), true); }); });
