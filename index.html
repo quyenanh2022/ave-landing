@@ -78,6 +78,12 @@ section[id]{scroll-margin-top:16px}
 .pay-ok{width:64px;height:64px;border-radius:50%;background:var(--pc);color:var(--pc-ink);box-shadow:0 0 0 8px rgba(var(--pc-rgb),.18);animation:payPop .5s cubic-bezier(.2,1.4,.4,1);font-size:30px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto}
 .pay-done-msg{margin:0;text-align:center;font-size:15px;line-height:1.6}
 .pay-dl{display:flex;flex-direction:column;gap:10px}
+.pay-dlmain{display:flex;align-items:center;justify-content:center;gap:10px;font-size:17px!important;padding:16px 18px!important}
+.pay-mail{margin:2px 0 0;text-align:center;font-size:13.5px;color:#C9C8C2}.pay-mail b{color:#fff}
+.pay-how{margin:4px 0 0;padding:12px 14px 12px 34px;border:1px solid #2A2A33;border-radius:14px;background:rgba(255,255,255,.03);font-size:14px;line-height:1.55;color:#DAD9D3;text-align:left}
+.pay-how li{margin:4px 0}.pay-how b{color:#fff}.pay-how .os{display:inline-block;padding:0 7px;border-radius:6px;font-size:12px;font-weight:800;margin-right:4px;vertical-align:1px}
+.pay-how .mac{background:#FFE45C;color:#111}.pay-how .win{background:#1E7BEA;color:#fff}
+.pay-guides{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media (max-width:640px){.pay{padding:0;align-items:flex-end}.pay-box{max-width:none;border-radius:20px 20px 0 0;max-height:92vh;padding:0 18px calc(20px + env(safe-area-inset-bottom))}.pay-box::before{margin:0 -18px}.pay-head{margin:0 -18px 14px;padding:18px 18px 14px}.pay.is-open .pay-box{animation:paySheet .35s cubic-bezier(.2,.9,.3,1)}}
 @media (prefers-reduced-motion:reduce){.pay.is-open,.pay.is-open .pay-box,.pay.is-open .pay-badge,.pay-step:not([hidden]),.pay-ok{animation:none!important}}
 details.faq summary::-webkit-details-marker{display:none}
@@ -425,7 +431,7 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <form id="payForm" class="pay-step" novalidate>
 <label>Họ tên<input name="name" required maxlength="60" autocomplete="name"></label>
 <label>Số điện thoại / Zalo<input name="phone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
-<label>Email <span class="pay-mute">(để nhận link tải / kết quả)</span><input name="email" type="email" maxlength="80" autocomplete="email"></label>
+<label>Email <span class="pay-mute pay-em-note">(để nhận link tải / kết quả)</span><input name="email" type="email" maxlength="80" autocomplete="email" placeholder="ban@gmail.com"></label>
 <div class="pay-trial">
 <label>Video cần edit<input name="file" type="file" accept="video/*,audio/*"></label>
 <label>Hoặc dán link video (Google Drive…)<input name="link" maxlength="500" placeholder="https://drive.google.com/…"></label>
@@ -573,7 +579,7 @@ function open(plan){
   if(!AVE_API){ location.href='https://zalo.me/0947362678'; return; }
   lastFocus = document.activeElement; cur = {plan:plan}; paid=false; upDone=true;
   theme(plan);
-  $('.pay-trial').hidden = plan!=='trial'; $('.pay-err').textContent=''; F.querySelector('[type=submit]').disabled=false;
+  $('.pay-trial').hidden = plan!=='trial'; $('.pay-em-note').textContent = plan==='trial' ? '(để nhận kết quả — không bắt buộc)' : '(bắt buộc — gửi link tải bộ cài)'; F.email.required = plan!=='trial'; $('.pay-err').textContent=''; F.querySelector('[type=submit]').disabled=false;
   show('payForm'); pop(); T('mo_thanh_toan', plan);
   F.addEventListener('input', function once(){ T('dien_form', cur && cur.plan); F.removeEventListener('input', once); });
   setTimeout(function(){ F.elements['name'].focus(); }, 50);
@@ -592,6 +598,7 @@ F.addEventListener('submit', function(e){
             note:F.note.value.trim(), link:F.link.value.trim(),
             vid: window.aveTrack && aveTrack.vid, src: window.aveTrack && aveTrack.src };
   if(!d.name || d.phone.length<9){ err.textContent='Vui lòng nhập họ tên và số điện thoại/Zalo.'; return; }
+  if(cur.plan!=='trial' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)){ err.textContent='Vui lòng nhập email đúng — AVE gửi link tải bộ cài vào email này.'; F.email.focus(); return; }
   if(cur.plan==='trial' && !file && !d.link){ err.textContent='Vui lòng chọn video hoặc dán link video.'; return; }
   if(file){ d.fileName=file.name; d.fileSize=file.size; d.fileType=file.type||'video/mp4'; }
   err.textContent=''; btn.disabled=true; btn.textContent='Đang tạo đơn…';
@@ -633,12 +640,22 @@ function check(){
 function poll(){ clearInterval(timer); var n=0; timer=setInterval(function(){ if(++n>400){clearInterval(timer);return;} check(); },3000); check(); }
 function done(r){
   if (window.aveTrack && !done._t) { done._t = 1; aveTrack('mua_xong', r.plan || cur.plan); }
-  clearInterval(timer); show('payDone'); history.replaceState(null,'',location.pathname);
+  clearInterval(timer); show('payDone');
+  // gói mua: giữ link đơn trên thanh địa chỉ → tải lại trang / mở lại vẫn thấy nút tải
+  history.replaceState(null,'', r.plan==='trial' ? location.pathname : '?order='+cur.order+'&t='+cur.token+'#tai');
   var msg=$('.pay-done-msg'), dl=$('.pay-dl'); dl.innerHTML='';
   if(r.plan==='trial'){ msg.innerHTML='<b>Đã nhận thanh toán và video.</b><br>Video sau khi edit sẽ được gửi lại qua Zalo/email của bạn.'; }
   else {
-    msg.innerHTML='<b>Thanh toán thành công!</b> Tải bộ cài và xem hướng dẫn bên dưới. Cài xong, AVE hiện <b>mã máy</b> — gửi mã đó qua Zalo kèm mã đơn <b>#'+cur.order+'</b> để nhận mã kích hoạt.';
-    (r.downloads||[]).forEach(function(d){ var a=document.createElement('a'); a.href=d.url; a.className='pay-btn'+(dl.children.length?' pay-btn2':''); a.textContent=d.label; a.target='_blank'; a.rel='noopener'; dl.appendChild(a); });
+    msg.innerHTML='<b>Thanh toán thành công!</b> Đơn <b>#'+cur.order+'</b>. Tải bộ cài AVE ngay bên dưới.';
+    var D=r.downloads||[], main=D[0], esc=function(x){ return String(x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); };
+    var h='';
+    if(main) h+='<a class="pay-btn pay-dlmain" href="'+esc(main.url)+'" rel="noopener" download data-dl>⬇ Tải bộ cài AVE <span style="font-weight:600;opacity:.75;font-size:13px">(Mac + Windows · ~2 MB)</span></a>';
+    if(D.length>1) h+='<div class="pay-guides">'+D.slice(1).map(function(d){ return '<a class="pay-btn pay-btn2" href="'+esc(d.url)+'" target="_blank" rel="noopener">▶ '+esc(d.label.replace('Video hướng dẫn – ','HD '))+'</a>'; }).join('')+'</div>';
+    h+='<p class="pay-mail">'+(r.email ? '📧 Đã gửi link tải + hướng dẫn vào <b>'+esc(r.email)+'</b> (xem cả mục Spam/Quảng cáo).' : 'Lưu lại trang này — mở lại link trên thanh địa chỉ để tải bất cứ lúc nào.')+'</p>';
+    h+='<ol class="pay-how"><li><b>Giải nén</b> file zip vừa tải (bấm đúp) → được thư mục <b>video-template</b>.</li>'
+      +'<li><span class="os mac">MAC</span>bấm đúp <b>Mo AVE Studio.command</b> (logo vàng) · <span class="os win">WIN</span>bấm đúp <b>Mo AVE Studio.bat</b> — lần đầu tự cài 10–20 phút, cần mạng.</li>'
+      +'<li>AVE hiện <b>MÃ MÁY</b> → gửi qua <a href="https://zalo.me/0947362678" target="_blank" rel="noopener" style="color:var(--pc)">Zalo 0947 362 678</a> kèm mã đơn <b>#'+cur.order+'</b> để nhận mã kích hoạt.</li></ol>';
+    dl.innerHTML=h;
   }
 }
 // quay lại từ trang payOS (?order=…&t=…)
