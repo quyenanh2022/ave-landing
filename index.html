@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AVE Studio – Phần mềm edit video tự động</title>
-<meta name="description" content="AVE Studio tự cắt từ đệm, thêm hook, chèn cảnh trám và làm sub tiếng Việt cho video của bạn. Chạy trên Mac và Windows. Thử 1 video chỉ 59.000đ.">
+<meta name="description" content="AVE Studio tự cắt từ đệm, thêm hook, chèn cảnh trám và làm sub tiếng Việt cho video của bạn. Chạy trên Mac và Windows. Dùng thử miễn phí 3 ngày. Thử 1 video chỉ 59.000đ.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ave.thuvienai.net/">
 <meta property="og:title" content="AVE Studio – Bạn quay video, AVE edit thành bản đăng được">
-<meta property="og:description" content="AVE Studio tự cắt từ đệm, thêm hook, chèn cảnh trám và làm sub tiếng Việt cho video của bạn. Chạy trên Mac và Windows. Thử 1 video chỉ 59.000đ.">
+<meta property="og:description" content="AVE Studio tự cắt từ đệm, thêm hook, chèn cảnh trám và làm sub tiếng Việt cho video của bạn. Chạy trên Mac và Windows. Dùng thử miễn phí 3 ngày. Thử 1 video chỉ 59.000đ.">
 <meta property="og:image" content="https://ave.thuvienai.net/media/og.jpg">
 <meta name="theme-color" content="#0E0E10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFE45C'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23111'%3EAVE%3C/text%3E%3C/svg%3E">
@@ -127,6 +127,26 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
  .mbar-a2{border:1px solid #3A3A44;color:#F2F1EC!important}
 }
 
+
+/* ---- dùng thử miễn phí ---- */
+.trial{display:flex;flex-wrap:wrap;gap:40px;align-items:center;background:linear-gradient(135deg,rgba(255,228,92,.10),rgba(255,228,92,.02) 55%),#141418;border:1px solid rgba(255,228,92,.28);border-radius:28px;padding:48px 40px}
+.trial-l{flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:18px}.trial-r{flex:1 1 360px;min-width:0}
+.trial-kick{margin:0;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FFE45C}
+.trial-list{margin:4px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;color:#C9C8C2;font-size:15.5px}
+.trial-list li{position:relative;padding-left:30px}.trial-list li::before{content:"";position:absolute;left:0;top:3px;width:18px;height:18px;border-radius:50%;background:#FFE45C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat}
+.trial-list b{color:#F2F1EC}
+.trial-card{position:relative;background:#0F0F13;border:1px solid #2A2A33;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.trial-card[hidden]{display:none}
+.trial-card label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A9A8A2;font-weight:600}
+.trial-card input{font:inherit;font-size:16px;color:#F2F1EC;background:#16161B;border:1px solid #33333C;border-radius:12px;padding:13px 14px;outline:none}.trial-card input:focus{border-color:#FFE45C;box-shadow:0 0 0 3px rgba(255,228,92,.15)}
+.trial-btn{font:inherit;cursor:pointer;border:0;background:#FFE45C;color:#111;font-weight:800;font-size:17px;padding:16px 18px;border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:0 10px 26px rgba(255,228,92,.22)}.trial-btn small{font-weight:600;font-size:12.5px;opacity:.7}.trial-btn:hover{filter:brightness(1.05)}.trial-btn:disabled{opacity:.6}
+.trial-err{margin:-4px 0 0;min-height:0;color:#ff8a80;font-size:14px}.trial-err:empty{display:none}
+.trial-badge{position:absolute;top:-22px;right:22px;width:78px;height:78px;border-radius:50%;background:#FFE45C;color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:700;line-height:1.05;text-align:center;transform:rotate(8deg);box-shadow:0 8px 20px rgba(0,0,0,.35)}.trial-badge span{font-size:28px;font-weight:900;line-height:1}
+.trial-how{margin:4px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:10px;color:#C9C8C2;font-size:14.5px}
+.trial-how .os,.pay-how .os{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:4px;vertical-align:1px}.trial-how .os.mac{background:#FFE45C;color:#111}.trial-how .os.win{background:#3b82f6;color:#fff}
+.trial-strip{display:flex;align-items:center;gap:16px;margin:0 0 28px;padding:16px 20px;border-radius:16px;border:1px dashed rgba(255,228,92,.45);background:rgba(255,228,92,.06);color:#F2F1EC;text-decoration:none}
+.trial-strip small{color:#A9A8A2;font-size:13.5px}.ts-ic{flex:none;width:42px;height:42px;border-radius:50%;background:#FFE45C;color:#111;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center}.ts-go{margin-left:auto;flex:none;color:#FFE45C;font-weight:700;white-space:nowrap}
+@media (max-width:640px){.trial{padding:32px 20px;border-radius:22px}.trial-strip{flex-wrap:wrap}.ts-go{margin-left:58px}}
 </style>
 </head>
 <body>
@@ -147,7 +167,7 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <a href="#bang-gia" style="color: #C9C8C2; text-decoration: none">Bảng giá</a>
 <a href="#hoi-dap" style="color: #C9C8C2; text-decoration: none">Hỏi đáp</a>
 </div>
-<a href="#mua" data-plan="trial" style="background: #FFE45C; color: #111; text-decoration: none; font-weight: 700; padding: 12px 20px; border-radius: 10px; font-size: 15px">Nhận bản dùng thử</a>
+<a href="#dung-thu" style="background: #FFE45C; color: #111; text-decoration: none; font-weight: 700; padding: 12px 20px; border-radius: 10px; font-size: 15px">Dùng thử miễn phí</a>
 </nav>
 </header>
 
@@ -158,10 +178,10 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <h1 style="margin: 0; font-size: clamp(38px, 5.4vw, 64px); line-height: 1.08; font-weight: 800; letter-spacing: -0.02em">Bạn quay video.<br>AVE edit thành bản đăng được.</h1>
 <p style="margin: 0; font-size: 19px; color: #C9C8C2; max-width: 560px">AVE tự cắt “ờ, à” và câu nói hỏng, đưa câu hay nhất lên làm hook, chèn cảnh trám và làm sub tiếng Việt. Bạn chỉ xem lại và bấm xuất. Không cần biết dựng, không cần thuê editor.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 12px">
-<a href="#mua" data-plan="trial" style="background: #FFE45C; color: #111; text-decoration: none; font-weight: 700; padding: 16px 26px; border-radius: 12px; font-size: 17px">Thử 1 video · 59.000đ</a>
+<a href="#dung-thu" style="background: #FFE45C; color: #111; text-decoration: none; font-weight: 700; padding: 16px 26px; border-radius: 12px; font-size: 17px">Tải về dùng thử miễn phí 3 ngày</a>
 <a href="#truoc-sau" style="border: 1px solid #3A3A44; color: #F2F1EC; text-decoration: none; font-weight: 600; padding: 16px 26px; border-radius: 12px; font-size: 17px">Xem video trước / sau</a>
 </div>
-<p style="margin: -8px 0 0; font-size: 14px; color: #A9A8A2">Thử trước với 1 video của bạn, chỉ 59.000đ.</p>
+<p style="margin: -8px 0 0; font-size: 14px; color: #A9A8A2">Miễn phí 3 ngày, đủ mọi tính năng, không cần thẻ. Ưng rồi mới mua.</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 14px; color: #A9A8A2; padding-top: 4px">
 <span style="display: flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Chạy trên máy, không cần thuê editor</span>
 <span style="display: flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Mac chip Apple &amp; Windows 10/11</span>
@@ -296,6 +316,45 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 </div>
 </section>
 
+<!-- DÙNG THỬ MIỄN PHÍ 3 NGÀY -->
+<section id="dung-thu" style="max-width: 1200px; margin: 0 auto; padding: 88px 24px 24px">
+<div class="trial">
+<div class="trial-l">
+<p class="trial-kick">Miễn phí · Không cần thẻ</p>
+<h2 style="margin: 0; font-size: clamp(30px, 3.8vw, 46px); line-height: 1.1; font-weight: 800; letter-spacing: -0.015em">Dùng thử AVE <span style="color:#FFE45C">miễn phí 3 ngày</span></h2>
+<p style="margin: 0; color: #C9C8C2; font-size: 18px; max-width: 520px">Tải về, cài trên máy của bạn và edit chính video của bạn với đủ mọi tính năng. Ưng thì mua, không ưng thì thôi — không tự trừ tiền.</p>
+<ul class="trial-list">
+<li><b>Đủ mọi tính năng</b> — cắt từ đệm, hook, cảnh trám, sub, nhạc nền, lọc ồn, xuất 1080p/4K.</li>
+<li><b>Edit không giới hạn</b> số video trong 3 ngày.</li>
+<li><b>Mua xong dùng tiếp ngay</b> — video và cài đặt đã làm vẫn giữ nguyên.</li>
+<li><b>Mac chip Apple (M1 trở lên)</b> hoặc <b>Windows 10/11</b>, ổ trống từ 10 GB.</li>
+</ul>
+</div>
+<div class="trial-r">
+<form id="trialForm" class="trial-card" novalidate>
+<div class="trial-badge"><span>3</span>ngày<br>miễn phí</div>
+<h3 style="margin: 0 0 4px; font-size: 22px; font-weight: 800">Nhận bộ cài AVE</h3>
+<p style="margin: 0 0 6px; color: #A9A8A2; font-size: 14px">Để lại tên và Zalo để được hỗ trợ cài đặt nếu cần.</p>
+<label>Họ tên<input name="tname" required maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
+<label>Số điện thoại / Zalo<input name="tphone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+<p class="trial-err" aria-live="polite"></p>
+<button type="submit" class="trial-btn">⬇ Tải AVE miễn phí <small>(Mac + Windows · 1,6 MB)</small></button>
+<p style="margin: 0; text-align: center; color: #8E8D87; font-size: 12.5px">Không cần thẻ · Không spam · Chỉ dùng để hỗ trợ bạn</p>
+</form>
+<div id="trialDone" class="trial-card" hidden>
+<p style="margin: 0; color: #3fd07a; font-weight: 700">✓ Đang tải bộ cài AVE…</p>
+<p style="margin: 0; color: #A9A8A2; font-size: 14px">Không thấy tải? <a id="trialAgain" href="https://github.com/quyenanh2022/ave-updates/releases/latest/download/AVE-chia-se.zip" style="color: #FFE45C">Bấm vào đây để tải lại</a>.</p>
+<ol class="trial-how">
+<li><b>Giải nén</b> file vừa tải (bấm đúp) → được thư mục <b>video-template</b>. Nên để ở ổ D: hoặc Desktop.</li>
+<li><span class="os mac">MAC</span> bấm đúp <b>Mo AVE Studio.command</b> · <span class="os win">WIN</span> bấm đúp <b>Mo AVE Studio.bat</b>. Lần đầu tự cài 10–20 phút, cần mạng.</li>
+<li>Cài xong, AVE <b>tự mở trên trình duyệt</b>. Bấm <b>“Dùng thử trước”</b> và bắt đầu edit.</li>
+</ol>
+<p style="margin: 0; font-size: 14px; color: #A9A8A2">Xem video hướng dẫn: <a href="#huong-dan" style="color: #FFE45C">Mac / Windows</a> · Cần giúp: <a href="https://zalo.me/0947362678" target="_blank" rel="noopener" style="color: #FFE45C">Zalo 0947 362 678</a></p>
+</div>
+</div>
+</div>
+</section>
+
 <!-- HOW -->
 <section id="cach-dung" style="background: #141418; border-top: 1px solid #23232A; border-bottom: 1px solid #23232A">
 <div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px">
@@ -353,7 +412,7 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <!-- CAM KET -->
 <section style="max-width: 1200px; margin: 0 auto; padding: 72px 24px 0">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px">
-<div style="display: flex; gap: 14px; align-items: flex-start; background: #16161B; border: 1px solid #26262E; border-radius: 16px; padding: 22px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700">Dùng thử trước, ưng mới mua</h3><p style="margin: 0; color: #B3B2AC; font-size: 14px">Chỉ 59.000đ cho 1 video của bạn, đủ mọi tính năng.</p></div></div>
+<div style="display: flex; gap: 14px; align-items: flex-start; background: #16161B; border: 1px solid #26262E; border-radius: 16px; padding: 22px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700">Dùng thử miễn phí 3 ngày</h3><p style="margin: 0; color: #B3B2AC; font-size: 14px">Cài xong là dùng được ngay, đủ mọi tính năng. Ưng rồi mới mua.</p></div></div>
 <div style="display: flex; gap: 14px; align-items: flex-start; background: #16161B; border: 1px solid #26262E; border-radius: 16px; padding: 22px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700">Hỗ trợ cài đặt từ xa</h3><p style="margin: 0; color: #B3B2AC; font-size: 14px">Gặp khó khi cài, có người hỗ trợ trực tiếp trên máy bạn.</p></div></div>
 <div style="display: flex; gap: 14px; align-items: flex-start; background: #16161B; border: 1px solid #26262E; border-radius: 16px; padding: 22px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFE45C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 3px"><path d="M20 6 9 17l-5-5"></path></svg><div><h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700">Luôn được bản mới</h3><p style="margin: 0; color: #B3B2AC; font-size: 14px">AVE tự báo và cập nhật trong 1 phút, không phải cài lại.</p></div></div>
 </div>
@@ -362,12 +421,13 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <!-- PRICING -->
 <section id="bang-gia" style="max-width: 1200px; margin: 0 auto; padding: 64px 24px 64px">
 <h2 style="margin: 0 0 12px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.01em">Bảng giá</h2>
-<p style="margin: 0 0 36px; color: #B3B2AC; font-size: 17px">Mỗi bản quyền dùng trên 1 máy. Chưa chắc? Thử 1 video chỉ 59.000đ.</p>
+<p style="margin: 0 0 20px; color: #B3B2AC; font-size: 17px">Mỗi bản quyền dùng trên 1 máy. Chưa chắc? <a href="#dung-thu" style="color: #FFE45C">Dùng thử miễn phí 3 ngày</a> trước đã.</p>
+<a href="#dung-thu" class="trial-strip"><span class="ts-ic">3</span><span><b>Mọi máy đều được dùng thử miễn phí 3 ngày</b><br><small>Tải về, cài đặt, dùng đủ tính năng với video của bạn — không cần thẻ, không tự gia hạn.</small></span><span class="ts-go">Tải miễn phí →</span></a>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
 <div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
-<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-weight: 700">Dùng thử</h3></div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><h3 style="margin: 0; font-size: 18px; font-weight: 700">Edit hộ 1 video</h3></div>
 <p style="margin: 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap"><span style="font-size: 36px; font-weight: 800; letter-spacing: -0.01em">59.000đ</span><span style="color: #A9A8A2; font-size: 15px">/ 1 video</span></p>
-<p style="margin: 0; color: #B3B2AC; font-size: 15px; flex-grow: 1">Edit thử 1 video của bạn với đủ mọi tính năng, xem kết quả rồi mới quyết.</p>
+<p style="margin: 0; color: #B3B2AC; font-size: 15px; flex-grow: 1">Không muốn tự cài? Gửi 1 video, bên mình edit hộ bằng AVE rồi gửi lại cho bạn.</p>
 <a href="#mua" data-plan="trial" style="text-align: center; border: 1px solid #3A3A44; color: #F2F1EC; font-weight: 600; text-decoration: none; padding: 14px 18px; border-radius: 10px">Thử 1 video</a>
 </div>
 <div style="background: #16161B; border: 1px solid #26262E; border-radius: 18px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
@@ -389,6 +449,7 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <section id="hoi-dap" style="max-width: 900px; margin: 0 auto; padding: 48px 24px 72px">
 <h2 style="margin: 0 0 28px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.15; font-weight: 800; letter-spacing: -0.01em">Hỏi đáp</h2>
 <div style="display: flex; flex-direction: column; gap: 14px">
+<details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Dùng thử miễn phí thế nào?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Mọi máy cài AVE đều được dùng thử miễn phí 3 ngày, đủ mọi tính năng, tính từ lần mở đầu tiên. Không cần thẻ, không tự trừ tiền. Hết 3 ngày, AVE hiện mã máy — gửi mã đó kèm gói bạn chọn để nhận mã kích hoạt, video và cài đặt đã làm vẫn giữ nguyên.</p></details>
 <details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Máy nào chạy được AVE?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Mac chip Apple (M1 trở lên) hoặc Windows 10/11, ổ đĩa trống từ 10 GB. Máy có card NVIDIA sẽ chép lời nhanh hơn; không có card rời AVE vẫn chạy bình thường.</p></details>
 <details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Cài đặt có khó không?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Giải nén, bấm đúp một file là AVE tự cài mọi thứ cần thiết. Lần đầu cần mạng và khoảng 10–20 phút.</p></details>
 <details class="faq" style="background: #16161B; border: 1px solid #26262E; border-radius: 14px; padding: 0 24px"><summary style="cursor: pointer; padding: 20px 0; font-size: 17px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 12px">Có phải biết dựng video không?<span aria-hidden="true" class="faq-ic" style="color: #FFE45C; font-weight: 400">+</span></summary><p style="margin: 0 0 20px; color: #B3B2AC; font-size: 15px">Không. AVE làm phần edit, bạn chỉ duyệt và bấm xuất. Muốn chỉnh kỹ hơn thì sửa ngay trong AVE Studio.</p></details>
@@ -402,15 +463,17 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 <div style="max-width: 1152px; margin: 0 auto; background: #FFE45C; color: #111; border-radius: 28px; padding: 56px 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px">
 <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 10px">
 <h2 style="margin: 0; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; font-weight: 800; letter-spacing: -0.01em">Thử AVE với chính video của bạn</h2>
-<p style="margin: 0; font-size: 17px; color: #2B2A22">Nhắn Zalo để nhận bộ cài và edit thử 1 video với 59.000đ. Có hướng dẫn cài đặt từng bước.</p>
+<p style="margin: 0; font-size: 17px; color: #2B2A22">Tải AVE về dùng thử miễn phí 3 ngày. Cần hỗ trợ cài đặt, nhắn Zalo là có người giúp từng bước.</p>
 </div>
-<a href="https://zalo.me/0947362678" style="background: #111; color: #FFE45C; text-decoration: none; font-weight: 700; padding: 18px 30px; border-radius: 14px; font-size: 18px">Nhắn Zalo: 0947 362 678</a>
+<div style="display: flex; flex-wrap: wrap; gap: 12px"><a href="#dung-thu" style="background: #111; color: #FFE45C; text-decoration: none; font-weight: 700; padding: 18px 30px; border-radius: 14px; font-size: 18px">Tải dùng thử miễn phí</a>
+<a href="https://zalo.me/0947362678" style="border: 2px solid #111; color: #111; text-decoration: none; font-weight: 700; padding: 16px 26px; border-radius: 14px; font-size: 17px">Zalo 0947 362 678</a></div>
+<a hidden href="https://zalo.me/0947362678" style="background: #111; color: #FFE45C; text-decoration: none; font-weight: 700; padding: 18px 30px; border-radius: 14px; font-size: 18px">Nhắn Zalo: 0947 362 678</a>
 </div>
 </section>
 
 <footer style="border-top: 1px solid #23232A">
 <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #8E8D87">
-<span>AVE Studio — edit video tự động<br><small style="color:#6E6D68">Trang dùng mã ẩn danh để thống kê lượt xem; chỉ lưu tên/SĐT khi bạn đặt hàng.</small></span>
+<span>AVE Studio — edit video tự động<br><small style="color:#6E6D68">Trang dùng mã ẩn danh để thống kê lượt xem; chỉ lưu tên/SĐT khi bạn đặt hàng hoặc đăng ký dùng thử.</small></span>
 <span>Zalo: <a href="https://zalo.me/0947362678" style="color: #C9C8C2">0947 362 678</a></span>
 </div>
 </footer>
@@ -418,7 +481,7 @@ details.faq[open] .faq-ic{transform:rotate(45deg)}
 </div>
 <div class="mbar" role="region" aria-label="Đăng ký nhanh">
 <a href="#bang-gia" class="mbar-a2">Xem bảng giá</a>
-<a href="#mua" data-plan="trial" class="mbar-a1">Thử 1 video · 59k</a>
+<a href="#dung-thu" class="mbar-a1">Dùng thử miễn phí</a>
 </div>
 
 <!-- ===== POPUP THANH TOÁN ===== -->
@@ -511,6 +574,8 @@ window.aveTrack = track; track.vid = vid; track.src = first; track.flush = flush
 // --- pixel quảng cáo (tuỳ chọn) ---
 function pix(n, d){
   var price = { trial: 59000, m30: 1000000, m90: 2700000 }[d];
+  if (window.fbq && n === 'dang_ky_dung_thu') fbq('track', 'Lead', { content_name: 'trial3' });
+  if (window.ttq && n === 'dang_ky_dung_thu') ttq.track('SubmitForm');
   if (window.fbq) { if (n === 'mo_thanh_toan') fbq('track', 'InitiateCheckout', { value: price, currency: 'VND', content_name: d }); if (n === 'mua_xong') fbq('track', 'Purchase', { value: price, currency: 'VND', content_name: d }); if (n === 'bam_zalo') fbq('track', 'Contact'); if (n === 'xem_muc' && d === 'bang-gia') fbq('track', 'ViewContent', { content_name: 'bang-gia' }); }
   if (window.ttq) { if (n === 'mo_thanh_toan') ttq.track('InitiateCheckout', { value: price, currency: 'VND' }); if (n === 'mua_xong') ttq.track('CompletePayment', { value: price, currency: 'VND' }); if (n === 'bam_zalo') ttq.track('Contact'); }
   if (window.gtag) { if (n === 'mo_thanh_toan') gtag('event', 'begin_checkout', { value: price, currency: 'VND' }); if (n === 'mua_xong') gtag('event', 'purchase', { value: price, currency: 'VND' }); if (n === 'bam_zalo') gtag('event', 'contact'); }
@@ -654,18 +719,43 @@ function done(r){
     h+='<p class="pay-mail">'+(r.email ? '📧 Đã gửi link tải + hướng dẫn vào <b>'+esc(r.email)+'</b> (xem cả mục Spam/Quảng cáo).' : 'Lưu lại trang này — mở lại link trên thanh địa chỉ để tải bất cứ lúc nào.')+'</p>';
     h+='<ol class="pay-how"><li><b>Giải nén</b> file zip vừa tải (bấm đúp) → được thư mục <b>video-template</b>.</li>'
       +'<li><span class="os mac">MAC</span>bấm đúp <b>Mo AVE Studio.command</b> (logo vàng) · <span class="os win">WIN</span>bấm đúp <b>Mo AVE Studio.bat</b> — lần đầu tự cài 10–20 phút, cần mạng.</li>'
-      +'<li>AVE hiện <b>MÃ MÁY</b> → gửi qua <a href="https://zalo.me/0947362678" target="_blank" rel="noopener" style="color:var(--pc)">Zalo 0947 362 678</a> kèm mã đơn <b>#'+cur.order+'</b> để nhận mã kích hoạt.</li></ol>';
+      +'<li>AVE tự mở trên trình duyệt, hiện <b>MÃ MÁY</b> → gửi qua <a href="https://zalo.me/0947362678" target="_blank" rel="noopener" style="color:var(--pc)">Zalo 0947 362 678</a> kèm mã đơn <b>#'+cur.order+'</b> để nhận mã kích hoạt, rồi dán vào ô <b>Mã kích hoạt</b> ngay trên trang.</li></ol>';
     dl.innerHTML=h;
   }
 }
 // quay lại từ trang payOS (?order=…&t=…)
 var q=new URLSearchParams(location.search);
+// mở thẳng cửa sổ mua từ trang khác (vd /edit/): ?goi=m30 | m90 | trial
+if(q.get('goi') && PLANS[q.get('goi')] && !q.get('order')) setTimeout(function(){ open(q.get('goi')); }, 400);
 if(q.get('order') && q.get('t') && AVE_API){
   cur={order:q.get('order'),token:q.get('t'),plan:''}; theme(''); pop();
   $('#payTitle').textContent='Kiểm tra thanh toán'; $('.pay-price').textContent='Đơn #'+cur.order;
   show('payQR'); $('.pay-qrwrap').hidden=true; $('#payLink').hidden=true; $('.pay-info').hidden=true;
   if(q.get('cancel')) $('.pay-wait').innerHTML='Bạn đã huỷ thanh toán. Đóng cửa sổ để chọn lại.'; else poll();
 }
+})();
+</script>
+
+<script>
+/* ===== Dùng thử miễn phí 3 ngày: lưu tên/SĐT (tab "Điểm chạm", sự kiện dang_ky_dung_thu) rồi tải bộ cài ===== */
+(function(){
+  var DL = "https://github.com/quyenanh2022/ave-updates/releases/latest/download/AVE-chia-se.zip";
+  var F = document.getElementById('trialForm'), D = document.getElementById('trialDone'); if (!F) return;
+  var T = function(n, d, once){ if (window.aveTrack) aveTrack(n, d, once); };
+  try { var saved = JSON.parse(localStorage.getItem('ave_trial') || 'null'); if (saved) { F.tname.value = saved.n || ''; F.tphone.value = saved.p || ''; } } catch(e){}
+  F.addEventListener('focusin', function(){ T('mo_form_dung_thu', '', 1); });
+  F.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = F.querySelector('.trial-err'), n = F.tname.value.trim(), p = F.tphone.value.replace(/[^0-9+]/g, '');
+    if (!n) { err.textContent = 'Vui lòng nhập họ tên.'; F.tname.focus(); return; }
+    if (p.replace(/\D/g, '').length < 9) { err.textContent = 'Vui lòng nhập số điện thoại/Zalo đúng để được hỗ trợ cài đặt.'; F.tphone.focus(); return; }
+    err.textContent = '';
+    try { localStorage.setItem('ave_trial', JSON.stringify({ n: n, p: p })); } catch(e){}
+    T('dang_ky_dung_thu', n + ' · ' + p); if (window.aveTrack && aveTrack.flush) aveTrack.flush(true);
+    var a = document.createElement('a'); a.href = DL; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
+    F.hidden = true; D.hidden = false; D.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  document.getElementById('trialAgain').addEventListener('click', function(){ T('tai_lai_dung_thu', ''); });
 })();
 </script>
 </body>

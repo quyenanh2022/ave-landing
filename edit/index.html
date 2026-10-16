@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVE – Quay xong là có video đăng. Phần edit để máy lo.</title>
+<meta name="description" content="AVE Studio tự cắt ờ à, câu nói hỏng, chọn hook, chèn cảnh trám, làm sub tiếng Việt và xuất video dọc/ngang. Chạy trên máy Mac & Windows. Dùng thử miễn phí 3 ngày.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ave.thuvienai.net/edit/">
+<meta property="og:title" content="Quay xong là có video đăng — AVE tự edit phần còn lại">
+<meta property="og:description" content="Cắt từ đệm, hook, cảnh trám, sub tiếng Việt, nhạc nền, lọc ồn. Dùng thử miễn phí 3 ngày trên máy của bạn.">
+<meta property="og:image" content="https://ave.thuvienai.net/media/og.jpg">
+<meta name="theme-color" content="#0B0B0D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFE45C'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='900' font-size='24' text-anchor='middle' fill='%23111'%3EAVE%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0B0D;--bg2:#111115;--card:#16161B;--line:#26262E;--line2:#33333C;--tx:#F2F1EC;--mut:#B3B2AC;--mut2:#8E8D87;--y:#FFE45C;--y-ink:#111;--g:#3fd07a;--r:#ff6b5f}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 'Be Vietnam Pro',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+a{color:var(--y)}img,video{max-width:100%;display:block}
+.w{max-width:1120px;margin:0 auto;padding:0 20px}.wn{max-width:820px;margin:0 auto;padding:0 20px}
+section{padding:88px 0}section[id]{scroll-margin-top:64px}
+h1,h2,h3{margin:0;letter-spacing:-.015em;line-height:1.12}
+h2{font-size:clamp(28px,4vw,44px);font-weight:800}
+.kick{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--y);margin-bottom:14px}
+.lead{font-size:clamp(17px,1.6vw,20px);color:var(--mut);margin:16px 0 0}
+.hl{background:linear-gradient(transparent 58%,rgba(255,228,92,.38) 58%);padding:0 .08em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:800;font-size:17px;text-decoration:none;border-radius:14px;padding:16px 26px;cursor:pointer;border:0;transition:transform .08s,filter .15s}
+.btn:active{transform:translateY(1px)}
+.btn-y{background:var(--y);color:var(--y-ink);box-shadow:0 10px 28px rgba(255,228,92,.22)}.btn-y:hover{filter:brightness(1.06);color:var(--y-ink)}
+.btn-o{background:transparent;color:var(--tx);border:1px solid var(--line2)}.btn-o:hover{border-color:#55555f;color:var(--tx)}
+.note{font-size:14px;color:var(--mut2)}
+/* thanh trên */
+.top{position:sticky;top:0;z-index:50;background:rgba(11,11,13,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #1d1d23}
+.top .w{display:flex;align-items:center;gap:14px;height:62px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--tx);font-weight:800}.logo b{background:var(--y);color:#111;border-radius:8px;padding:2px 8px}
+.top .sp{flex:1}.top .pr{font-size:13.5px;color:var(--mut)}.top .pr b{color:var(--y)}
+.top .btn{padding:10px 16px;font-size:14.5px;border-radius:11px}
+@media (max-width:700px){.top .pr{display:none}}
+/* hero */
+.hero{padding:72px 0 56px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-30% -10% auto auto;width:720px;height:720px;background:radial-gradient(closest-side,rgba(255,228,92,.14),transparent);pointer-events:none}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.quote{font-size:clamp(36px,5.6vw,66px);font-weight:900;line-height:1.04;letter-spacing:-.025em}
+.quote q{quotes:"“" "”"}.quote q::before,.quote q::after{color:var(--y)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero .chips{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--mut)}
+.hero .chips span::before{content:"✓";color:var(--y);font-weight:900;margin-right:7px}
+.phone{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line2);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);aspect-ratio:9/16;max-height:640px;margin-left:auto}
+.phone video{width:100%;height:100%;object-fit:cover}
+@media (max-width:900px){.hero .w{grid-template-columns:1fr}.phone{margin:0 auto;max-width:360px;width:100%}}
+/* số liệu */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.stat b{display:block;font-size:30px;font-weight:900;color:var(--y);line-height:1.1}.stat span{font-size:14px;color:var(--mut)}
+@media (max-width:800px){.stats{grid-template-columns:repeat(2,1fr)}}
+/* trước / sau */
+.ba{background:var(--bg2);border-top:1px solid #1d1d23;border-bottom:1px solid #1d1d23}
+.ba-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
+.ba-time{display:flex;align-items:center;gap:14px;margin:26px 0 18px;flex-wrap:wrap}
+.ba-time .t{font:800 34px/1 ui-monospace,Menlo,monospace;padding:12px 16px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.ba-time .t.raw{color:var(--mut);text-decoration:line-through;text-decoration-color:var(--r)}.ba-time .t.cut{color:var(--y);border-color:rgba(255,228,92,.4)}
+.ba-time small{display:block;font:600 12px/1.2 'Be Vietnam Pro',sans-serif;color:var(--mut2);margin-top:6px;text-decoration:none}
+.ba-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;color:var(--mut)}
+.ba-list li{padding-left:28px;position:relative}.ba-list li::before{content:"✂";position:absolute;left:0;color:var(--y)}
+.ba video{border-radius:22px;border:1px solid var(--line2);background:#000;width:100%}
+@media (max-width:900px){.ba-grid{grid-template-columns:1fr}}
+/* nỗi khổ */
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.pain{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;position:relative}
+.pain .n{font:900 44px/1 'Be Vietnam Pro',sans-serif;color:transparent;-webkit-text-stroke:1.5px #4a4a55;margin-bottom:14px}
+.pain h3{font-size:19px;margin-bottom:8px}.pain p{margin:0;color:var(--mut);font-size:15px}
+@media (max-width:900px){.pains{grid-template-columns:1fr}}
+/* đồng cảm */
+.story{font-size:clamp(18px,1.8vw,21px);color:#D8D7D1;line-height:1.75}
+.story p{margin:0 0 18px}.story em{font-style:italic;color:var(--tx)}
+/* máy tính */
+.calc{background:linear-gradient(160deg,rgba(255,228,92,.08),transparent 60%),var(--card);border:1px solid rgba(255,228,92,.25);border-radius:26px;padding:36px;margin-top:36px}
+.calc-in{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.calc label{display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--mut);font-weight:600}
+.calc label b{font-size:22px;color:var(--tx)}
+.calc input[type=range]{width:100%;accent-color:var(--y)}
+.calc-out{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.co{background:#0F0F13;border:1px solid var(--line);border-radius:18px;padding:20px}
+.co small{display:block;font-size:13px;color:var(--mut2);font-weight:600;margin-bottom:6px}
+.co b{font-size:clamp(24px,3vw,34px);font-weight:900;line-height:1.1}
+.co.big b{color:var(--r)}.co.ave b{color:var(--g)}
+@media (max-width:800px){.calc{padding:24px}.calc-in,.calc-out{grid-template-columns:1fr}}
+/* các bước */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px;counter-reset:s}
+.step{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;position:relative}
+.step::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--y);color:#111;font-weight:900;font-size:19px;margin-bottom:16px}
+.step h3{font-size:18px;margin-bottom:6px}.step p{margin:0;color:var(--mut);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}@media (max-width:560px){.steps{grid-template-columns:1fr}}
+/* lời hứa */
+.promise{text-align:center}.promise h2{font-size:clamp(30px,4.6vw,52px)}
+/* tính năng */
+.feats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:40px}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.feat .tag{align-self:flex-start;font:700 12.5px/1 ui-monospace,Menlo,monospace;color:var(--y);background:rgba(255,228,92,.1);border:1px solid rgba(255,228,92,.25);padding:6px 10px;border-radius:8px}
+.feat h3{font-size:21px}.feat .when{font-size:14px;color:var(--mut2)}.feat .when b{color:var(--mut)}
+.feat ul{margin:0;padding-left:18px;color:var(--mut);font-size:15px;display:flex;flex-direction:column;gap:4px}
+@media (max-width:800px){.feats{grid-template-columns:1fr}}
+/* tốc độ */
+.bench{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.bn{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.bn small{color:var(--mut2);font-size:13px;font-weight:600}.bn b{display:block;font-size:34px;font-weight:900;color:var(--y);margin:6px 0 2px}.bn p{margin:0;color:var(--mut);font-size:14.5px}
+@media (max-width:800px){.bench{grid-template-columns:1fr}}
+/* nói thẳng */
+.honest{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.hc{border-radius:22px;padding:28px;border:1px solid var(--line);background:var(--card)}
+.hc h3{font-size:20px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.hc ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;color:var(--mut);font-size:15px}
+.hc li{padding-left:26px;position:relative}
+.hc.no li::before{content:"✕";position:absolute;left:0;color:var(--r);font-weight:900}
+.hc.yes li::before{content:"✓";position:absolute;left:0;color:var(--g);font-weight:900}
+@media (max-width:800px){.honest{grid-template-columns:1fr}}
+/* yêu cầu */
+.req{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.rq{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.rq b{display:block;font-size:17px;margin-bottom:6px}.rq p{margin:0;color:var(--mut);font-size:15px}
+.incl{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:800px){.req,.incl{grid-template-columns:1fr}}
+/* bảng giá */
+.price{background:var(--bg2);border-top:1px solid #1d1d23;border-bottom:1px solid #1d1d23}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;align-items:stretch}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:14px;position:relative}
+.plan.free{border-color:rgba(255,228,92,.55);background:linear-gradient(170deg,rgba(255,228,92,.12),transparent 55%),var(--card)}
+.plan .badge{position:absolute;top:-13px;left:24px;background:var(--y);color:#111;font-size:12px;font-weight:800;letter-spacing:.04em;padding:5px 11px;border-radius:99px;text-transform:uppercase}
+.plan.best .badge{background:var(--g)}
+.plan h3{font-size:20px}.plan .pr{font-size:clamp(28px,3vw,38px);font-weight:900;line-height:1.1;white-space:nowrap}.plan .pr small{font-size:15px;font-weight:600;color:var(--mut)}
+.plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;color:var(--mut);font-size:15px;flex:1}
+.plan li::before{content:"✓";color:var(--y);font-weight:900;margin-right:8px}
+.plan .btn{width:100%}
+@media (max-width:900px){.plans{grid-template-columns:1fr}}
+.alt{margin-top:22px;text-align:center;color:var(--mut);font-size:15px}
+/* hỏi đáp */
+.faq{display:flex;flex-direction:column;gap:10px;margin-top:32px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 22px}
+.faq summary{cursor:pointer;list-style:none;padding:19px 0;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}.faq summary::after{content:"+";color:var(--y);font-weight:400;font-size:22px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 20px;color:var(--mut);font-size:15.5px}
+/* dùng thử */
+.trial{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;background:linear-gradient(135deg,rgba(255,228,92,.12),rgba(255,228,92,.02) 55%),var(--bg2);border:1px solid rgba(255,228,92,.3);border-radius:30px;padding:48px 40px}
+.tcard{position:relative;background:#0D0D11;border:1px solid #2A2A33;border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.tcard[hidden]{display:none}
+.tcard label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#A9A8A2;font-weight:600}
+.tcard input{font:inherit;font-size:16px;color:var(--tx);background:#16161B;border:1px solid var(--line2);border-radius:12px;padding:13px 14px;outline:none}.tcard input:focus{border-color:var(--y);box-shadow:0 0 0 3px rgba(255,228,92,.15)}
+.tcard .btn{flex-direction:column;gap:2px}.tcard .btn small{font-weight:600;font-size:12.5px;opacity:.7}
+.terr{margin:0;color:#ff8a80;font-size:14px}.terr:empty{display:none}
+.tbadge{position:absolute;top:-24px;right:22px;width:80px;height:80px;border-radius:50%;background:var(--y);color:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:800;line-height:1.05;text-align:center;transform:rotate(8deg);box-shadow:0 8px 20px rgba(0,0,0,.4)}.tbadge span{font-size:30px;font-weight:900;line-height:1}
+.thow{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px;color:#C9C8C2;font-size:14.5px}
+.os{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:4px;vertical-align:1px}.os.mac{background:var(--y);color:#111}.os.win{background:#3b82f6;color:#fff}
+@media (max-width:900px){.trial{grid-template-columns:1fr;padding:32px 20px}}
+/* chốt */
+.final{text-align:center}.final .box{background:var(--y);color:#111;border-radius:32px;padding:64px 28px}
+.final h2{font-size:clamp(32px,5vw,56px)}.final p{font-size:18px;color:#2B2A22;max-width:640px;margin:16px auto 28px}
+.final .btn-k{background:#111;color:var(--y)}.final .btn-k:hover{color:#fff1a8}
+footer{border-top:1px solid #1d1d23;padding:30px 0 100px;color:var(--mut2);font-size:14px}
+footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}footer a{color:#C9C8C2}
+/* thanh dưới (điện thoại) */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(11,11,13,.94);backdrop-filter:blur(12px);border-top:1px solid #23232A}
+.mbar a{flex:1;text-align:center;text-decoration:none;font-weight:800;border-radius:12px;padding:13px 10px;font-size:15px}
+.mbar .a1{background:var(--y);color:#111}.mbar .a2{border:1px solid var(--line2);color:var(--tx)}
+@media (max-width:700px){.mbar{display:flex}}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="w">
+<a class="logo" href="#top"><b>AVE</b>Studio</a>
+<span class="sp"></span>
+<span class="pr">Máy mới được <b>dùng thử miễn phí 3 ngày</b></span>
+<a class="btn btn-y" href="#dung-thu">Dùng thử miễn phí</a>
+</div></header>
+
+<!-- 1. HERO -->
+<section class="hero" id="top"><div class="w">
+<div>
+<span class="kick">Phần mềm edit video tự động · Mac &amp; Windows</span>
+<h1 class="quote"><q>Quay xong là có video đăng. Phần edit, để máy lo.</q></h1>
+<p class="lead">AVE Studio tự cắt <b>“ờ, à”</b> và câu nói hỏng, chọn câu hay nhất làm hook, chèn cảnh minh hoạ, làm <span class="hl">sub tiếng Việt khớp từng chữ</span>, thêm nhạc nền, lọc ồn — rồi xuất video dọc hoặc ngang. Bạn chỉ xem lại và bấm xuất.</p>
+<div class="cta">
+<a class="btn btn-y" href="#dung-thu">⬇ Tải dùng thử miễn phí 3 ngày</a>
+<a class="btn btn-o" href="#truoc-sau">Xem trước / sau</a>
+</div>
+<div class="chips"><span>Không cần biết dựng</span><span>Không cần thuê editor</span><span>Không cần thẻ để dùng thử</span></div>
+</div>
+<div class="phone"><video src="../media/review.mp4" poster="../media/review.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+</div></section>
+
+<!-- 2. TRƯỚC / SAU -->
+<section class="ba" id="truoc-sau"><div class="w">
+<div class="ba-grid">
+<div>
+<span class="kick">Cùng một video gốc</span>
+<h2>Bạn nói thế nào cũng được. <span style="color:var(--y)">AVE gọt lại cho gọn.</span></h2>
+<div class="ba-time"><div class="t raw">06:51<small>quay thô</small></div><span style="font-size:26px;color:var(--mut2)">→</span><div class="t cut">05:50<small>AVE tự cắt</small></div></div>
+<ul class="ba-list">
+<li>Bỏ “ờ, à, thì là, kiểu như là…”</li>
+<li>Bỏ câu nói hỏng, câu nói lại, đoạn lặng dài</li>
+<li>Giữ lại chỗ bạn cố ý nhấn nhá — bạn duyệt từng chỗ cắt</li>
+</ul>
+<p class="note" style="margin-top:16px">Video thật làm bằng AVE: bỏ đi khoảng 1 phút nói thừa. Thường AVE cắt 3–15% thời lượng — nói càng nhiều “ờ, à” thì cắt càng nhiều.</p>
+</div>
+<video src="../media/truoc-sau.mp4" poster="../media/truoc-sau.jpg" controls playsinline preload="metadata"></video>
+</div>
+<div class="stats">
+<div class="stat"><b>~40%</b><span>thời lượng có cảnh minh hoạ, tự chèn</span></div>
+<div class="stat"><b>1 dòng</b><span>sub trắng + 1 dòng nhấn vàng, không ngắt giữa từ ghép</span></div>
+<div class="stat"><b>Dọc · Ngang</b><span>xuất 720p, 1080p đến 4K</span></div>
+<div class="stat"><b>Mac · Win</b><span>Mac chip Apple, Windows 10/11</span></div>
+</div>
+</div></section>
+
+<!-- 3. NỖI KHỔ -->
+<section id="noi-kho"><div class="w">
+<span class="kick">Vì sao video cứ nằm trong máy</span>
+<h2>Quay thì nhanh. Edit mới là thứ làm bạn bỏ cuộc.</h2>
+<div class="pains">
+<div class="pain rv"><div class="n">01</div><h3>Ngồi tua cắt từng chữ “ờ”</h3><p>Video 3 phút mà mất cả buổi tối để cắt câu hỏng, căn sub từng dòng, tìm cảnh chèn cho đỡ nhàm.</p></div>
+<div class="pain rv"><div class="n">02</div><h3>Thuê editor thì chờ và tốn</h3><p>Gửi video, chờ vài ngày, sửa qua sửa lại. Mỗi tháng vài chục video là một khoản không nhỏ.</p></div>
+<div class="pain rv"><div class="n">03</div><h3>Đăng không đều, kênh đứng im</h3><p>Hôm nào bận là không có video. Thuật toán không đợi ai — kênh ra video thất thường thì khó lớn.</p></div>
+</div>
+</div></section>
+
+<!-- 4. ĐỒNG CẢM -->
+<section style="padding-top:0"><div class="wn">
+<span class="kick">Nghe có quen không</span>
+<div class="story">
+<p>Bạn quay xong 5 video trong một buổi sáng. Hứng khởi lắm. Rồi mở phần mềm dựng ra…</p>
+<p><em>“Thôi để tối làm.”</em> Tối thì mệt. <em>“Để cuối tuần.”</em> Cuối tuần có việc.</p>
+<p>Hai tuần sau, cả 5 video vẫn nằm nguyên trong máy. Không phải vì bạn lười — mà vì phần edit quá nhiều việc lặt vặt, và chẳng ai thích làm việc lặt vặt.</p>
+<p><b>AVE sinh ra để làm hết đống việc lặt vặt đó.</b> Bạn giữ lại phần quan trọng nhất: nói điều bạn muốn nói, và gật đầu duyệt.</p>
+</div>
+</div></section>
+
+<!-- 5. MÁY TÍNH CHI PHÍ -->
+<section style="padding-top:24px" id="chi-phi"><div class="w">
+<span class="kick">Thử tính cho chính bạn</span>
+<h2>Bạn đang trả bao nhiêu cho việc tự edit?</h2>
+<p class="lead">Kéo các thanh cho đúng với bạn. Đây chỉ là ví dụ để bạn tự ước lượng.</p>
+<div class="calc">
+<div class="calc-in">
+<label>Số video mỗi tháng <b id="cV">30</b><input type="range" id="iV" min="4" max="120" step="1" value="30"></label>
+<label>Giờ edit cho mỗi video <b id="cH">2 giờ</b><input type="range" id="iH" min="0.5" max="6" step="0.5" value="2"></label>
+<label>1 giờ của bạn đáng giá <b id="cR">100.000đ</b><input type="range" id="iR" min="50000" max="500000" step="10000" value="100000"></label>
+</div>
+<div class="calc-out">
+<div class="co"><small>Giờ ngồi edit mỗi năm</small><b id="oH">720 giờ</b></div>
+<div class="co big"><small>Quy ra tiền mỗi năm</small><b id="oM">72.000.000đ</b></div>
+<div class="co ave"><small>AVE gói 90 ngày (×4 = cả năm)</small><b>10.800.000đ</b></div>
+</div>
+<p class="note" style="margin:16px 0 0">Với AVE bạn vẫn cần vài phút xem lại và bấm xuất cho mỗi video — nhưng không còn ngồi cắt, gõ sub, tìm cảnh chèn bằng tay.</p>
+</div>
+</div></section>
+
+<!-- 6. CÁCH DÙNG -->
+<section class="ba" id="cach-dung"><div class="w">
+<span class="kick">Cách dùng</span>
+<h2>4 bước, từ video thô đến video đăng được</h2>
+<div class="steps">
+<div class="step rv"><h3>Đưa video vào</h3><p>Kéo thả file, dán link Google Drive hoặc đường dẫn trên máy. Nhận cả file chỉ có giọng nói.</p></div>
+<div class="step rv"><h3>AVE tự phân tích</h3><p>Chép lời, tìm chỗ cần cắt, đề xuất hook và cảnh trám. Bạn làm việc khác trong lúc chờ.</p></div>
+<div class="step rv"><h3>Bạn duyệt</h3><p>Xem trực tiếp trên video: giữ/bỏ từng đoạn, đổi hook, sửa từng câu sub, chọn nhạc.</p></div>
+<div class="step rv"><h3>Bấm xuất</h3><p>Nhận file dọc/ngang sẵn sàng đăng TikTok, Reels, Shorts, YouTube.</p></div>
+</div>
+</div></section>
+
+<!-- 7. LỜI HỨA -->
+<section class="promise"><div class="wn">
+<h2>Bạn chỉ cần <span style="color:var(--y)">quay và duyệt</span>.<br>AVE làm phần còn lại.</h2>
+<p class="lead">Mọi thứ chạy ngay trên máy của bạn trong một giao diện duy nhất — AVE Studio. Không phải học phần mềm dựng, không phải gửi video đi đâu.</p>
+</div></section>
+
+<!-- 8. TÍNH NĂNG -->
+<section style="padding-top:0" id="tinh-nang"><div class="w">
+<span class="kick">AVE làm thay bạn những gì</span>
+<h2>Mỗi việc edit tốn thời gian — một tính năng lo trọn</h2>
+<div class="feats">
+<div class="feat rv"><span class="tag">✂ Cắt thông minh</span><h3>Cắt từ đệm, câu hỏng, đoạn lặng</h3><p class="when"><b>Dành cho khi:</b> bạn nói tự nhiên, hay “ờ, à”, nói lại câu.</p><ul><li>Nhận giọng tiếng Việt tới từng chữ</li><li>Điểm cắt rơi vào chỗ lặng thật, nghe không bị giật</li><li>Bạn duyệt từng chỗ cắt, muốn giữ thì bấm Giữ</li></ul></div>
+<div class="feat rv"><span class="tag">⚡ Hook</span><h3>Câu mở đầu giữ chân người xem</h3><p class="when"><b>Dành cho khi:</b> video hay mà 3 giây đầu bị lướt qua.</p><ul><li>Tự chọn câu “đắt” nhất đưa lên đầu</li><li>Tiêu đề lớn, phần nhấn tô màu</li><li>Nền hook bằng clip/ảnh của bạn nếu muốn</li></ul></div>
+<div class="feat rv"><span class="tag">🎬 Cảnh trám</span><h3>Chèn cảnh minh hoạ tự động</h3><p class="when"><b>Dành cho khi:</b> video nói một mình dễ gây nhàm.</p><ul><li>~40% thời lượng, mỗi cảnh 2–4 giây, không chồng nhau</li><li>Ưu tiên thư viện ảnh/clip của bạn, thiếu thì lấy kho miễn phí</li><li>Thẻ số liệu, danh sách, tiêu đề — không che mặt</li></ul></div>
+<div class="feat rv"><span class="tag">💬 Sub tiếng Việt</span><h3>Phụ đề khớp từng chữ, sửa từng câu</h3><p class="when"><b>Dành cho khi:</b> người xem tắt tiếng khi lướt.</p><ul><li>1 dòng trắng + 1 dòng nhấn, không ngắt giữa từ ghép</li><li>Sửa, xoá, thêm từng câu ngay trên giao diện</li><li>Tự chọn màu, font — hoặc tải font riêng của bạn</li></ul></div>
+<div class="feat rv"><span class="tag">🎵 Âm thanh</span><h3>Nhạc nền, lọc ồn, cân giọng</h3><p class="when"><b>Dành cho khi:</b> quay ngoài trời, quạt kêu, giọng lúc to lúc nhỏ.</p><ul><li>Tải nhạc của bạn lên, chỉnh âm lượng nhạc &amp; giọng</li><li>Lọc ồn 3 mức, nghe thử trước/sau</li><li>Tự chuẩn độ to cho TikTok, Reels, YouTube</li></ul></div>
+<div class="feat rv"><span class="tag">⬆ Xuất &amp; cập nhật</span><h3>Xuất nhanh, luôn có bản mới</h3><p class="when"><b>Dành cho khi:</b> bạn cần đăng ngay, nhiều kênh.</p><ul><li>Dọc hoặc ngang, 720p · 1080p · 4K</li><li>Dùng GPU của máy để xuất nhanh hơn</li><li>AVE tự báo bản mới, bấm 1 nút là cập nhật</li></ul></div>
+</div>
+</div></section>
+
+<!-- 9. TỐC ĐỘ -->
+<section style="padding-top:0"><div class="w">
+<span class="kick">Đo trên máy thật</span>
+<h2>Nhanh cỡ nào?</h2>
+<div class="bench">
+<div class="bn"><small>Xuất video 3 phút · 1080p</small><b>~13 phút</b><p>MacBook chip M1 — trong lúc đó bạn làm việc khác.</p></div>
+<div class="bn"><small>Lọc ồn cả video 3 phút</small><b>~40 giây</b><p>MacBook Air — chỉ chạy lần đầu, các lần xuất sau dùng lại.</p></div>
+<div class="bn"><small>Thời gian bạn thật sự ngồi</small><b>vài phút</b><p>Xem lại chỗ cắt, hook, sub — rồi bấm xuất.</p></div>
+</div>
+<p class="note" style="margin-top:14px">Máy yếu hơn sẽ chậm hơn. Máy có card NVIDIA chép lời nhanh hơn.</p>
+</div></section>
+
+<!-- 10. NÓI THẲNG -->
+<section class="ba" id="noi-thang"><div class="w">
+<span class="kick">Nói thẳng</span>
+<h2>AVE không phải phép màu. Đây là những gì nó làm được — và chưa.</h2>
+<div class="honest">
+<div class="hc no"><h3>Giới hạn</h3><ul>
+<li>Không tự động 100% — bạn vẫn nên xem lại trước khi xuất.</li>
+<li>Không chạy trên điện thoại; không hỗ trợ Windows 7/8 và Mac chip Intel.</li>
+<li>Lần cài đầu cần mạng và khoảng 10–20 phút.</li>
+<li>Không viết kịch bản, không quay hộ — AVE edit video bạn đã quay.</li>
+</ul></div>
+<div class="hc yes"><h3>Làm được</h3><ul>
+<li>Cắt từ đệm, câu hỏng, đoạn lặng — tối ưu cho tiếng Việt.</li>
+<li>Hook, cảnh trám, sub, nhạc nền, lọc ồn trong một chỗ.</li>
+<li>Xuất dọc/ngang tới 4K, chạy trên Mac chip Apple và Windows 10/11.</li>
+<li>Video chạy trên máy bạn, không phải tải lên đâu cả.</li>
+</ul></div>
+</div>
+</div></section>
+
+<!-- 11. CẦN GÌ / NHẬN GÌ -->
+<section><div class="w">
+<span class="kick">Trước khi dùng</span>
+<h2>Bạn cần gì, bạn nhận được gì</h2>
+<div class="req">
+<div class="rq"><b>💻 Máy tính</b><p>Mac chip Apple (M1 trở lên) hoặc Windows 10/11. RAM từ 8 GB.</p></div>
+<div class="rq"><b>💾 Ổ đĩa</b><p>Trống từ 10 GB — đặt AVE ở ổ D: hoặc ổ ngoài đều được.</p></div>
+<div class="rq"><b>🌐 Mạng</b><p>Cần mạng lúc cài lần đầu. Sau đó edit chạy ngay trên máy.</p></div>
+</div>
+<div class="incl">
+<div class="hc yes"><h3>Đã gồm</h3><ul><li>AVE Studio đầy đủ tính năng</li><li>Cập nhật bản mới tự động trong thời hạn gói</li><li>Video hướng dẫn cài &amp; dùng cho Mac và Windows</li><li>Hỗ trợ qua Zalo, hỗ trợ cài đặt từ xa khi cần</li></ul></div>
+<div class="hc no"><h3>Không gồm</h3><ul><li>Viết kịch bản, quay video, chiến lược kênh</li><li>Nhạc nền có bản quyền (bạn dùng nhạc của mình)</li><li>Sửa lỗi phần mềm khác trên máy</li></ul></div>
+</div>
+</div></section>
+
+<!-- 12. DÙNG THỬ -->
+<section style="padding-top:0" id="dung-thu"><div class="w">
+<div class="trial">
+<div>
+<span class="kick">Miễn phí · Không cần thẻ</span>
+<h2>Thử AVE <span style="color:var(--y)">3 ngày miễn phí</span> với chính video của bạn</h2>
+<p class="lead">Mọi máy cài AVE đều được dùng thử 3 ngày, đủ mọi tính năng, edit không giới hạn video. Ưng thì mua — video và cài đặt đã làm vẫn giữ nguyên. Không ưng thì thôi, không tự trừ tiền.</p>
+</div>
+<div>
+<form id="trialForm" class="tcard" novalidate>
+<div class="tbadge"><span>3</span>ngày<br>miễn phí</div>
+<h3 style="font-size:22px">Nhận bộ cài AVE</h3>
+<p style="margin:-4px 0 4px;color:#A9A8A2;font-size:14px">Để lại tên và Zalo để được hỗ trợ cài đặt nếu cần.</p>
+<label>Họ tên<input name="tname" required maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
+<label>Số điện thoại / Zalo<input name="tphone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+<p class="terr" aria-live="polite"></p>
+<button type="submit" class="btn btn-y">⬇ Tải AVE miễn phí <small>(Mac + Windows · 1,6 MB)</small></button>
+<p style="margin:0;text-align:center;color:var(--mut2);font-size:12.5px">Không cần thẻ · Không spam · Chỉ dùng để hỗ trợ bạn</p>
+</form>
+<div id="trialDone" class="tcard" hidden>
+<p style="margin:0;color:var(--g);font-weight:800">✓ Đang tải bộ cài AVE…</p>
+<p style="margin:0;color:#A9A8A2;font-size:14px">Không thấy tải? <a id="trialAgain" href="https://github.com/quyenanh2022/ave-updates/releases/latest/download/AVE-chia-se.zip">Bấm vào đây để tải lại</a>.</p>
+<ol class="thow">
+<li><b>Giải nén</b> file vừa tải → được thư mục <b>video-template</b>. Nên để ở ổ D: hoặc Desktop.</li>
+<li><span class="os mac">MAC</span> bấm đúp <b>Mo AVE Studio.command</b> · <span class="os win">WIN</span> bấm đúp <b>Mo AVE Studio.bat</b>. Lần đầu tự cài 10–20 phút, cần mạng.</li>
+<li>Cài xong, AVE <b>tự mở trên trình duyệt</b>. Bấm <b>“Dùng thử trước”</b> và bắt đầu edit.</li>
+</ol>
+<p style="margin:0;font-size:14px;color:#A9A8A2">Video hướng dẫn: <a href="../#huong-dan">Mac / Windows</a> · Cần giúp: <a href="https://zalo.me/0947362678" target="_blank" rel="noopener">Zalo 0947 362 678</a></p>
+</div>
+</div>
+</div>
+</div></section>
+
+<!-- 13. BẢNG GIÁ -->
+<section class="price" id="bang-gia"><div class="w">
+<span class="kick">Bảng giá</span>
+<h2>Dùng thử trước. Ưng rồi chọn gói.</h2>
+<p class="lead">Mỗi bản quyền dùng trên 1 máy, edit không giới hạn số video trong thời hạn gói.</p>
+<div class="plans">
+<div class="plan free"><span class="badge">Bắt đầu ở đây</span><h3>Dùng thử</h3><div class="pr">0đ <small>/ 3 ngày</small></div><ul><li>Đủ mọi tính năng</li><li>Edit không giới hạn video</li><li>Không cần thẻ, không tự gia hạn</li></ul><a class="btn btn-y" href="#dung-thu">Tải dùng thử</a></div>
+<div class="plan"><h3>30 ngày</h3><div class="pr">1.000.000đ <small>/ 30 ngày</small></div><ul><li>Edit không giới hạn trong 30 ngày</li><li>Cập nhật bản mới tự động</li><li>Hỗ trợ qua Zalo</li></ul><a class="btn btn-o" href="../?goi=m30#bang-gia" data-buy="m30">Chọn gói 30 ngày</a></div>
+<div class="plan best"><span class="badge">Tiết kiệm nhất</span><h3>90 ngày</h3><div class="pr">2.700.000đ <small>/ 90 ngày</small></div><ul><li>Rẻ hơn 300.000đ so với 3 lần gói 30 ngày</li><li>Edit không giới hạn trong 90 ngày</li><li>Hỗ trợ cài đặt từ xa</li></ul><a class="btn btn-y" href="../?goi=m90#bang-gia" data-buy="m90">Chọn gói 90 ngày</a></div>
+</div>
+<p class="alt">Không muốn tự cài? <a href="../?goi=trial#bang-gia" data-buy="trial">Gửi 1 video, bên mình edit hộ — 59.000đ</a></p>
+</div></section>
+
+<!-- 14. HỎI ĐÁP -->
+<section id="hoi-dap"><div class="wn">
+<span class="kick">Hỏi đáp</span>
+<h2>Câu hỏi thường gặp</h2>
+<div class="faq">
+<details><summary>Dùng thử miễn phí có bị giới hạn gì không?</summary><p>Không. 3 ngày dùng thử có đủ mọi tính năng và edit không giới hạn số video, tính từ lần mở AVE đầu tiên trên máy. Hết hạn, AVE hiện mã máy — bạn gửi mã đó để nhận mã kích hoạt gói đã chọn, video và cài đặt vẫn giữ nguyên.</p></details>
+<details><summary>Máy tính bình thường có chạy được không?</summary><p>Được, nếu là Mac chip Apple (M1 trở lên) hoặc Windows 10/11, RAM từ 8 GB, ổ trống từ 10 GB. Máy có card NVIDIA chép lời nhanh hơn; không có card rời AVE vẫn chạy bình thường, chỉ chậm hơn.</p></details>
+<details><summary>Máy đang cài CapCut, Premiere có dùng AVE được không?</summary><p>Được. AVE nằm trong một thư mục riêng, không đụng tới phần mềm khác. Bạn có thể xuất video từ AVE rồi chỉnh thêm trong phần mềm quen dùng nếu muốn.</p></details>
+<details><summary>Edit một video mất bao lâu?</summary><p>Phần máy tự làm (chép lời, đề xuất cắt, cảnh trám) chạy trong lúc bạn làm việc khác. Phần bạn ngồi duyệt thường chỉ vài phút. Xuất video 3 phút bản 1080p mất khoảng 13 phút trên Mac M1.</p></details>
+<details><summary>Cài đặt có khó không? Người lớn tuổi dùng được không?</summary><p>Giải nén, bấm đúp một file là AVE tự cài mọi thứ, xong tự mở trên trình duyệt. Có video hướng dẫn từng bước cho Mac và Windows, gặp khó thì có người hỗ trợ cài từ xa qua Zalo.</p></details>
+<details><summary>Có bản mới thì sao?</summary><p>AVE tự báo khi có bản mới. Bấm “Cập nhật” là xong trong khoảng 1 phút, video và cài đặt giữ nguyên.</p></details>
+<details><summary>Đổi máy thì sao?</summary><p>Mỗi bản quyền gắn với 1 máy. Đổi máy, bạn gửi mã máy mới để được cấp lại mã kích hoạt.</p></details>
+</div>
+</div></section>
+
+<!-- 15. CHỐT -->
+<section class="final" style="padding-top:24px"><div class="w"><div class="box">
+<h2>Quyết định là của bạn</h2>
+<p>Tiếp tục ngồi cắt từng chữ “ờ” mỗi tối — hoặc để AVE làm, còn bạn dành thời gian quay thêm video. Dùng thử 3 ngày không mất gì cả.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+<a class="btn btn-k" href="#dung-thu">⬇ Tải dùng thử miễn phí</a>
+<a class="btn" style="border:2px solid #111;color:#111" href="https://zalo.me/0947362678" target="_blank" rel="noopener">Hỏi qua Zalo 0947 362 678</a>
+</div>
+</div></div></section>
+
+<footer><div class="w">
+<span>AVE Studio — edit video tự động<br><small style="color:#6E6D68">Trang dùng mã ẩn danh để thống kê lượt xem; chỉ lưu tên/SĐT khi bạn đặt hàng hoặc đăng ký dùng thử.</small></span>
+<span><a href="../">Trang chủ AVE</a> · <a href="#bang-gia">Bảng giá</a> · <a href="#hoi-dap">Hỏi đáp</a> · Zalo: <a href="https://zalo.me/0947362678">0947 362 678</a></span>
+</div></footer>
+
+<div class="mbar"><a class="a2" href="#bang-gia">Bảng giá</a><a class="a1" href="#dung-thu">Dùng thử miễn phí</a></div>
+
+<script>
+/* ===== Theo dõi điểm chạm (ẩn danh) → Google Sheet "AVE – Đơn hàng", tab "Điểm chạm" =====
+   Điền ID nếu muốn bắn thêm sự kiện sang Facebook / TikTok / Google (để trống = không dùng). */
+var FB_PIXEL = '', TT_PIXEL = '', GA4_ID = '';
+(function(){
+var API = 'https://script.google.com/macros/s/AKfycbxiwyKJFi3whKbSm2RJmtk99bW5SWSz43iaSH6Z3o4x0wADrxGTi99u-sHDTJN2cw8B/exec';
+function ls(k, v){ try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch(e){ return null; } }
+function ss(k, v){ try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch(e){ return null; } }
+function rid(){ return (Date.now().toString(36) + Math.random().toString(36).slice(2, 10)); }
+// máy của admin không tính: mở trang với ?ave_admin=1 (bật) hoặc ?ave_admin=0 (tắt); trang /admin tự bật
+var qa = new URLSearchParams(location.search).get('ave_admin'); if (qa === '1' || qa === '0') ls('ave_admin', qa);
+if (ls('ave_admin') === '1') API = '';
+var vid = ls('ave_vid') || rid(); ls('ave_vid', vid);
+var sid = ss('ave_sid') || rid(); ss('ave_sid', sid);
+// nguồn: utm_* > mã click quảng cáo > trang giới thiệu
+var q = new URLSearchParams(location.search), ref = '';
+try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch(e){}
+if (ref === location.hostname) ref = '';
+function detect(){
+  if (q.get('utm_source')) return { source: q.get('utm_source').toLowerCase(), medium: q.get('utm_medium') || '', campaign: q.get('utm_campaign') || '' };
+  if (q.get('fbclid')) return { source: 'facebook', medium: /facebook|fb\.|instagram/.test(ref) || !ref ? 'social' : 'click', campaign: '' };
+  if (q.get('ttclid')) return { source: 'tiktok', medium: 'ads', campaign: '' };
+  if (q.get('gclid')) return { source: 'google', medium: 'ads', campaign: '' };
+  if (q.get('zarsrc') || /zalo/.test(ref)) return { source: 'zalo', medium: 'social', campaign: '' };
+  if (!ref) return null;
+  var m = [[/facebook|fb\.com|messenger/, 'facebook'], [/instagram/, 'instagram'], [/tiktok/, 'tiktok'], [/youtube|youtu\.be/, 'youtube'], [/google\./, 'google'], [/bing|coccoc|yahoo/, 'tim_kiem_khac'], [/threads/, 'threads']];
+  for (var i = 0; i < m.length; i++) if (m[i][0].test(ref)) return { source: m[i][1], medium: m[i][1] === 'google' ? 'organic' : 'social', campaign: '' };
+  return { source: ref, medium: 'referral', campaign: '' };
+}
+var now = detect();
+var first = null; try { first = JSON.parse(ls('ave_src') || 'null'); } catch(e){}
+if (!first) { first = now || { source: 'truc_tiep', medium: '', campaign: '' }; ls('ave_src', JSON.stringify(first)); }
+var ua = navigator.userAgent, dev = (/Mobi|Android|iPhone|iPad/.test(ua) ? 'mobile' : 'desktop') + '·' + (/iPhone|iPad|iPod/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS/.test(ua) ? 'Mac' : 'khác');
+var Q = [], seen = {}, timer = null;
+function flush(beacon){
+  if (!Q.length || !API) return;
+  var body = JSON.stringify({ action: 'track', v: vid, s: sid, src: first, dev: dev, now: Date.now(), e: Q.splice(0, 40) });
+  try {
+    if (beacon && navigator.sendBeacon && navigator.sendBeacon(API, body)) return;
+    fetch(API, { method: 'POST', body: body, mode: 'no-cors', keepalive: true }).catch(function(){});
+  } catch(e){}
+}
+function track(n, d, once){
+  if (once) { var k = n + '|' + (d || ''); if (seen[k]) return; seen[k] = 1; }
+  Q.push({ n: n, d: d == null ? '' : String(d).slice(0, 200), t: Date.now() });
+  pix(n, d);
+  clearTimeout(timer); timer = setTimeout(flush, Q.length >= 10 ? 0 : 4000);
+}
+window.aveTrack = track; track.vid = vid; track.src = first; track.flush = flush;
+// --- pixel quảng cáo (tuỳ chọn) ---
+function pix(n, d){
+  var price = { trial: 59000, m30: 1000000, m90: 2700000 }[d];
+  if (window.fbq && n === 'dang_ky_dung_thu') fbq('track', 'Lead', { content_name: 'trial3' });
+  if (window.ttq && n === 'dang_ky_dung_thu') ttq.track('SubmitForm');
+  if (window.fbq) { if (n === 'mo_thanh_toan') fbq('track', 'InitiateCheckout', { value: price, currency: 'VND', content_name: d }); if (n === 'mua_xong') fbq('track', 'Purchase', { value: price, currency: 'VND', content_name: d }); if (n === 'bam_zalo') fbq('track', 'Contact'); if (n === 'xem_muc' && d === 'bang-gia') fbq('track', 'ViewContent', { content_name: 'bang-gia' }); }
+  if (window.ttq) { if (n === 'mo_thanh_toan') ttq.track('InitiateCheckout', { value: price, currency: 'VND' }); if (n === 'mua_xong') ttq.track('CompletePayment', { value: price, currency: 'VND' }); if (n === 'bam_zalo') ttq.track('Contact'); }
+  if (window.gtag) { if (n === 'mo_thanh_toan') gtag('event', 'begin_checkout', { value: price, currency: 'VND' }); if (n === 'mua_xong') gtag('event', 'purchase', { value: price, currency: 'VND' }); if (n === 'bam_zalo') gtag('event', 'contact'); }
+}
+function load(src){ var s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
+if (FB_PIXEL) { !function(f,b,e,v,n){ if(f.fbq) return; n = f.fbq = function(){ n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if(!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; load(v); }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', FB_PIXEL); fbq('track', 'PageView'); }
+if (TT_PIXEL) { !function(w){ var t = w.ttq = w.ttq || []; ['page','track','identify'].forEach(function(m){ t[m] = t[m] || function(){ t.push([m].concat([].slice.call(arguments))); }; }); load('https://analytics.tiktok.com/i18n/pixel/events.js?sdkid=' + TT_PIXEL + '&lib=ttq'); }(window); ttq.page(); }
+if (GA4_ID) { load('https://www.googletagmanager.com/gtag/js?id=' + GA4_ID); window.dataLayer = window.dataLayer || []; window.gtag = function(){ dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', GA4_ID); }
+// --- các điểm chạm ---
+track('xem_trang', location.pathname + (now ? ' ← ' + now.source : (ref ? ' ← ' + ref : '')));
+var marks = [25, 50, 75, 100];
+addEventListener('scroll', function(){
+  var h = document.documentElement, p = (h.scrollTop + innerHeight) / h.scrollHeight * 100;
+  while (marks.length && p >= marks[0] - 2) track('cuon_trang', marks.shift() + '%', true);
+}, { passive: true });
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function(es){ es.forEach(function(x){ if (x.isIntersecting) { track('xem_muc', x.target.id, true); io.unobserve(x.target); } }); }, { threshold: 0.35 });
+  document.querySelectorAll('section[id]').forEach(function(s){ if (s.id !== 'top') io.observe(s); });
+}
+document.querySelectorAll('video').forEach(function(v){
+  var name = (v.getAttribute('src') || '').split('/').pop().replace(/\.\w+$/, '') || 'video', half = false;
+  v.addEventListener('play', function(){ track('xem_video', name, true); });
+  v.addEventListener('timeupdate', function(){ if (!v.duration) return; var r = v.currentTime / v.duration; if (!half && r >= 0.5) { half = true; track('video_50', name, true); } if (r >= 0.95) track('video_het', name, true); });
+  v.addEventListener('ended', function(){ track('video_het', name, true); });
+});
+document.addEventListener('click', function(e){
+  var a = e.target.closest('a[href]'); if (!a) return;
+  var h = a.getAttribute('href');
+  if (/zalo\.me/.test(h)) { var w = a.closest('section[id],footer,#pay'); track('bam_zalo', w ? (w.id || w.tagName.toLowerCase()) : 'trang'); }
+  else if (/^https?:/.test(h) && a.hostname !== location.hostname && a.id !== 'payLink') track('bam_link', a.hostname);
+}, true);
+document.querySelectorAll('details').forEach(function(d){ d.addEventListener('toggle', function(){ if (d.open) var sm = d.querySelector('summary'); track('mo_hoi_dap', ((sm && sm.firstChild && sm.firstChild.textContent) || '').trim().slice(0, 60), true); }); });
+var t0 = Date.now(), active = 0, last = Date.now();
+document.addEventListener('visibilitychange', function(){
+  if (document.visibilityState === 'hidden') { active += Date.now() - last; track('thoi_gian', Math.round(active / 1000) + 's'); clearTimeout(timer); flush(true); }
+  else last = Date.now();
+});
+addEventListener('pagehide', function(){ flush(true); });
+})();
+</script>
+<script>
+(function(){
+  var T = function(n, d, once){ if (window.aveTrack) aveTrack(n, d, once); };
+  // máy tính chi phí
+  var vnd = function(x){ return Math.round(x).toLocaleString('vi-VN') + 'đ'; };
+  function calc(){
+    var v = +iV.value, h = +iH.value, r = +iR.value, y = v * h * 12;
+    cV.textContent = v; cH.textContent = (h % 1 ? h.toString().replace('.', ',') : h) + ' giờ'; cR.textContent = vnd(r);
+    oH.textContent = Math.round(y).toLocaleString('vi-VN') + ' giờ'; oM.textContent = vnd(y * r);
+  }
+  ['iV','iH','iR'].forEach(function(id){ document.getElementById(id).addEventListener('input', calc); document.getElementById(id).addEventListener('change', function(){ T('dung_may_tinh', iV.value + 'v·' + iH.value + 'h', 1); }); });
+  calc();
+  // hiện dần khi cuộn
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: .15 }) : null;
+  document.querySelectorAll('.rv').forEach(function(el){ io ? io.observe(el) : el.classList.add('in'); });
+  // nút mua → mở cửa sổ thanh toán ở trang chính
+  document.querySelectorAll('[data-buy]').forEach(function(a){ a.addEventListener('click', function(){ T('bam_mua_tu_edit', a.getAttribute('data-buy')); if (window.aveTrack && aveTrack.flush) aveTrack.flush(true); }); });
+  // dùng thử
+  var DL = "https://github.com/quyenanh2022/ave-updates/releases/latest/download/AVE-chia-se.zip", F = document.getElementById('trialForm'), D = document.getElementById('trialDone');
+  try { var sv = JSON.parse(localStorage.getItem('ave_trial') || 'null'); if (sv) { F.tname.value = sv.n || ''; F.tphone.value = sv.p || ''; } } catch(e){}
+  F.addEventListener('focusin', function(){ T('mo_form_dung_thu', 'edit', 1); });
+  F.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = F.querySelector('.terr'), n = F.tname.value.trim(), p = F.tphone.value.replace(/[^0-9+]/g, '');
+    if (!n) { err.textContent = 'Vui lòng nhập họ tên.'; F.tname.focus(); return; }
+    if (p.replace(/\D/g, '').length < 9) { err.textContent = 'Vui lòng nhập số điện thoại/Zalo đúng để được hỗ trợ cài đặt.'; F.tphone.focus(); return; }
+    err.textContent = '';
+    try { localStorage.setItem('ave_trial', JSON.stringify({ n: n, p: p })); } catch(e){}
+    T('dang_ky_dung_thu', n + ' · ' + p + ' · /edit'); if (window.aveTrack && aveTrack.flush) aveTrack.flush(true);
+    var a = document.createElement('a'); a.href = DL; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
+    F.hidden = true; D.hidden = false; D.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  document.getElementById('trialAgain').addEventListener('click', function(){ T('tai_lai_dung_thu', 'edit'); });
+})();
+</script>
+</body>
+</html>
