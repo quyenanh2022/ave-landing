@@ -56,7 +56,7 @@ h2{font-size:clamp(28px,4vw,44px);font-weight:800}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .hero .chips{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--mut)}
 .hero .chips span::before{content:"✓";color:var(--y);font-weight:900;margin-right:7px}
-.phone{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line2);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);aspect-ratio:9/16;max-height:640px;margin-left:auto}
+.phone{position:relative;align-self:start;border-radius:28px;overflow:hidden;border:1px solid var(--line2);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);aspect-ratio:9/16;max-height:560px;margin-left:auto}
 .phone video{width:100%;height:100%;object-fit:cover}
 @media (max-width:900px){.hero .w{grid-template-columns:1fr}.phone{margin:0 auto;max-width:360px;width:100%}}
 /* số liệu */
@@ -74,6 +74,12 @@ h2{font-size:clamp(28px,4vw,44px);font-weight:800}
 .ba-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;color:var(--mut)}
 .ba-list li{padding-left:28px;position:relative}.ba-list li::before{content:"✂";position:absolute;left:0;color:var(--y)}
 .ba video{border-radius:22px;border:1px solid var(--line2);background:#000;width:100%}
+.hero-stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:26px}
+.hero-stats .stat{padding:14px 16px;border-radius:14px}.hero-stats .stat b{font-size:22px}.hero-stats .stat span{font-size:13px}
+.ba-grid{grid-template-columns:1fr auto}
+.ba-grid>video{max-height:560px;width:auto;max-width:100%;justify-self:end;border-radius:18px}
+@media (max-width:900px){.ba-grid>video{justify-self:center}}
+@media (max-width:560px){.hero-stats{grid-template-columns:1fr 1fr}}
 @media (max-width:900px){.ba-grid{grid-template-columns:1fr}}
 /* nỗi khổ */
 .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
@@ -200,6 +206,12 @@ footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}foo
 <a class="btn btn-o" href="#truoc-sau">Xem trước / sau</a>
 </div>
 <div class="chips"><span>Không cần biết dựng</span><span>Không cần thuê editor</span><span>Không cần thẻ để dùng thử</span></div>
+<div class="stats hero-stats">
+<div class="stat"><b>~40%</b><span>thời lượng có cảnh minh hoạ, tự chèn</span></div>
+<div class="stat"><b>1 dòng</b><span>sub trắng + 1 dòng nhấn vàng, không ngắt giữa từ ghép</span></div>
+<div class="stat"><b>Dọc · Ngang</b><span>xuất 720p, 1080p đến 4K</span></div>
+<div class="stat"><b>Mac · Win</b><span>Mac chip Apple, Windows 10/11</span></div>
+</div>
 </div>
 <div class="phone"><video src="../media/review.mp4" poster="../media/review.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
 </div></section>
@@ -219,12 +231,6 @@ footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}foo
 <p class="note" style="margin-top:16px">Video thật làm bằng AVE: bỏ đi khoảng 1 phút nói thừa. Thường AVE cắt 3–15% thời lượng — nói càng nhiều “ờ, à” thì cắt càng nhiều.</p>
 </div>
 <video src="../media/truoc-sau.mp4" poster="../media/truoc-sau.jpg" controls playsinline preload="metadata"></video>
-</div>
-<div class="stats">
-<div class="stat"><b>~40%</b><span>thời lượng có cảnh minh hoạ, tự chèn</span></div>
-<div class="stat"><b>1 dòng</b><span>sub trắng + 1 dòng nhấn vàng, không ngắt giữa từ ghép</span></div>
-<div class="stat"><b>Dọc · Ngang</b><span>xuất 720p, 1080p đến 4K</span></div>
-<div class="stat"><b>Mac · Win</b><span>Mac chip Apple, Windows 10/11</span></div>
 </div>
 </div></section>
 
