@@ -351,15 +351,17 @@ footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}foo
 <form id="trialForm" class="tcard" novalidate>
 <div class="tbadge"><span>3</span>ngày<br>miễn phí</div>
 <h3 style="font-size:22px">Nhận bộ cài AVE</h3>
-<p style="margin:-4px 0 4px;color:#A9A8A2;font-size:14px">Để lại tên và Zalo để được hỗ trợ cài đặt nếu cần.</p>
+<p style="margin:-4px 0 4px;color:#A9A8A2;font-size:14px">Hệ thống tự gửi bộ cài + hướng dẫn vào email của bạn.</p>
 <label>Họ tên<input name="tname" required maxlength="60" autocomplete="name" placeholder="Nguyễn Văn A"></label>
 <label>Số điện thoại / Zalo<input name="tphone" required inputmode="tel" maxlength="15" autocomplete="tel" placeholder="09xx xxx xxx"></label>
+<label>Email <span style="font-weight:500;opacity:.8">(nhận bộ cài + hướng dẫn)</span><input name="temail" type="email" required maxlength="120" autocomplete="email" inputmode="email" placeholder="ban@gmail.com"></label>
 <p class="terr" aria-live="polite"></p>
 <button type="submit" class="btn btn-y">⬇ Tải AVE miễn phí <small>(Mac + Windows · 1,6 MB)</small></button>
 <p style="margin:0;text-align:center;color:var(--mut2);font-size:12.5px">Không cần thẻ · Không spam · Chỉ dùng để hỗ trợ bạn</p>
 </form>
 <div id="trialDone" class="tcard" hidden>
 <p style="margin:0;color:var(--g);font-weight:800">✓ Đang tải bộ cài AVE…</p>
+<p class="tmail" style="margin:0;color:#C9C8C2;font-size:14px"></p>
 <p style="margin:0;color:#A9A8A2;font-size:14px">Không thấy tải? <a id="trialAgain" href="https://github.com/quyenanh2022/ave-updates/releases/latest/download/AVE-chia-se.zip">Bấm vào đây để tải lại</a>.</p>
 <ol class="thow">
 <li><b>Giải nén</b> file vừa tải → được thư mục <b>video-template</b>. Nên để ở ổ D: hoặc Desktop.</li>
@@ -530,17 +532,33 @@ addEventListener('pagehide', function(){ flush(true); });
   document.querySelectorAll('[data-buy]').forEach(function(a){ a.addEventListener('click', function(){ T('bam_mua_tu_edit', a.getAttribute('data-buy')); if (window.aveTrack && aveTrack.flush) aveTrack.flush(true); }); });
   // dùng thử
   var DL = "https://github.com/quyenanh2022/ave-updates/releases/latest/download/AVE-chia-se.zip", F = document.getElementById('trialForm'), D = document.getElementById('trialDone');
-  try { var sv = JSON.parse(localStorage.getItem('ave_trial') || 'null'); if (sv) { F.tname.value = sv.n || ''; F.tphone.value = sv.p || ''; } } catch(e){}
+  var TRIAL_API = 'https://script.google.com/macros/s/AKfycbxiwyKJFi3whKbSm2RJmtk99bW5SWSz43iaSH6Z3o4x0wADrxGTi99u-sHDTJN2cw8B/exec';
+  // gửi email bộ cài + hướng dẫn qua máy chủ đơn hàng (Apps Script, action "trial"); lỗi thì vẫn có link tải trực tiếp
+  function sendMail(d, box){
+    var st = box.querySelector('.tmail'); if (!st) return;
+    st.innerHTML = '✉ Đang gửi bộ cài &amp; hướng dẫn vào <b>' + d.email.replace(/[<>&"]/g,'') + '</b>…';
+    var done = false, to = setTimeout(function(){ if (!done) st.innerHTML = '✉ Thư đang được gửi tới <b>' + d.email.replace(/[<>&"]/g,'') + '</b> — kiểm tra cả mục Spam/Quảng cáo.'; }, 9000);
+    fetch(TRIAL_API, { method: 'POST', body: JSON.stringify(d) }).then(function(r){ return r.json(); }).then(function(j){
+      done = true; clearTimeout(to);
+      if (j && j.ok && j.sent) { st.innerHTML = '✉ Đã gửi bộ cài &amp; hướng dẫn vào <b>' + d.email.replace(/[<>&"]/g,'') + '</b> (xem cả mục Spam/Quảng cáo).'; T('gui_mail_dung_thu', 'ok'); }
+      else { st.innerHTML = '✉ Chưa gửi được email — bạn cứ dùng nút tải ở trên, hoặc nhắn Zalo để nhận lại.'; T('gui_mail_dung_thu', 'loi: ' + ((j && j.error) || '')); }
+    }).catch(function(){ done = true; clearTimeout(to); st.innerHTML = '✉ Chưa gửi được email — bạn cứ dùng nút tải ở trên, hoặc nhắn Zalo để nhận lại.'; T('gui_mail_dung_thu', 'loi mang'); });
+  }
+
+  try { var sv = JSON.parse(localStorage.getItem('ave_trial') || 'null'); if (sv) { F.tname.value = sv.n || ''; F.tphone.value = sv.p || ''; F.temail.value = sv.e || ''; } } catch(e){}
   F.addEventListener('focusin', function(){ T('mo_form_dung_thu', 'edit', 1); });
   F.addEventListener('submit', function(e){
     e.preventDefault();
     var err = F.querySelector('.terr'), n = F.tname.value.trim(), p = F.tphone.value.replace(/[^0-9+]/g, '');
     if (!n) { err.textContent = 'Vui lòng nhập họ tên.'; F.tname.focus(); return; }
     if (p.replace(/\D/g, '').length < 9) { err.textContent = 'Vui lòng nhập số điện thoại/Zalo đúng để được hỗ trợ cài đặt.'; F.tphone.focus(); return; }
+    var em = F.temail.value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) { err.textContent = 'Vui lòng nhập email đúng — hệ thống gửi bộ cài + hướng dẫn vào email này.'; F.temail.focus(); return; }
     err.textContent = '';
-    try { localStorage.setItem('ave_trial', JSON.stringify({ n: n, p: p })); } catch(e){}
+    try { localStorage.setItem('ave_trial', JSON.stringify({ n: n, p: p, e: em })); } catch(e){}
     T('dang_ky_dung_thu', n + ' · ' + p + ' · /edit'); if (window.aveTrack && aveTrack.flush) aveTrack.flush(true);
     var a = document.createElement('a'); a.href = DL; a.rel = 'noopener'; document.body.appendChild(a); a.click(); a.remove();
+    sendMail({ action: 'trial', name: n, phone: p, email: em, page: '/edit/', vid: window.aveTrack && aveTrack.vid, src: window.aveTrack && aveTrack.src }, D);
     F.hidden = true; D.hidden = false; D.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
   document.getElementById('trialAgain').addEventListener('click', function(){ T('tai_lai_dung_thu', 'edit'); });
