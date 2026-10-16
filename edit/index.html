@@ -44,6 +44,14 @@ h2{font-size:clamp(28px,4vw,44px);font-weight:800}
 .hero::before{content:"";position:absolute;inset:-30% -10% auto auto;width:720px;height:720px;background:radial-gradient(closest-side,rgba(255,228,92,.14),transparent);pointer-events:none}
 .hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
 .quote{font-size:clamp(36px,5.6vw,66px);font-weight:900;line-height:1.04;letter-spacing:-.025em}
+.hero-hd{grid-column:1/-1;container-type:inline-size;min-width:0;margin-bottom:-24px}
+.quote .ln{display:block}
+.hero-hd .quote q::before,.hero-hd .quote q::after{content:none}
+.hero-hd .quote .ln:first-child::before{content:"“";color:var(--y)}.hero-hd .quote .ln:last-child::after{content:"”";color:var(--y)}
+.hero .w>div:not(.hero-hd):not(.phone){align-self:start}
+@media (min-width:901px){.hero .w>div:not(.hero-hd):not(.phone){padding-top:28px}}
+@media (max-width:900px){.hero-hd{margin-bottom:-28px}}
+@media (min-width:901px){.quote{font-size:clamp(34px,6.2cqi,76px)}.quote .ln{white-space:nowrap}}
 .quote q{quotes:"“" "”"}.quote q::before,.quote q::after{color:var(--y)}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .hero .chips{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--mut)}
@@ -181,9 +189,11 @@ footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}foo
 
 <!-- 1. HERO -->
 <section class="hero" id="top"><div class="w">
-<div>
+<div class="hero-hd">
 <span class="kick">Phần mềm edit video tự động</span>
-<h1 class="quote"><q>Quay xong, tải lên tool tự edit. Chờ 10 phút lấy video đăng.</q></h1>
+<h1 class="quote"><q><span class="ln">Quay xong, tải lên tool tự edit.</span> <span class="ln">Chờ 10 phút lấy video đăng.</span></q></h1>
+</div>
+<div>
 <p class="lead">AVE Studio tự cắt <b>“ờ, à”</b> và câu nói hỏng, chọn câu hay nhất làm hook, chèn cảnh minh hoạ, làm <span class="hl">sub tiếng Việt khớp từng chữ</span>, thêm nhạc nền, lọc ồn — rồi xuất video dọc hoặc ngang. Bạn chỉ xem lại và bấm xuất.</p>
 <div class="cta">
 <a class="btn btn-y" href="#dung-thu">⬇ Tải dùng thử miễn phí 3 ngày</a>
