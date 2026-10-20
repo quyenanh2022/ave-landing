@@ -48,17 +48,47 @@ h2{font-size:clamp(28px,4vw,44px);font-weight:800}
 .quote .ln{display:block}
 .hero-hd .quote q::before,.hero-hd .quote q::after{content:none}
 .hero-hd .quote .ln:first-child::before{content:"“";color:var(--y)}.hero-hd .quote .ln:last-child::after{content:"”";color:var(--y)}
-.hero .w>div:not(.hero-hd):not(.phone){align-self:start}
-@media (min-width:901px){.hero .w>div:not(.hero-hd):not(.phone){padding-top:28px}}
+.hero .w>div:not(.hero-hd){align-self:start}
+@media (min-width:901px){.hero .w>div:not(.hero-hd):not(:last-child){padding-top:28px}.hero .w>div:last-child{display:flex;flex-direction:column;align-items:flex-end}}
+@media (max-width:900px){.hero .w>div:last-child{display:flex;flex-direction:column;align-items:center}}
 @media (max-width:900px){.hero-hd{margin-bottom:-28px}}
 @media (min-width:901px){.quote{font-size:clamp(34px,6.2cqi,76px)}.quote .ln{white-space:nowrap}}
 .quote q{quotes:"“" "”"}.quote q::before,.quote q::after{color:var(--y)}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .hero .chips{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:14px;color:var(--mut)}
 .hero .chips span::before{content:"✓";color:var(--y);font-weight:900;margin-right:7px}
-.phone{position:relative;align-self:start;border-radius:28px;overflow:hidden;border:1px solid var(--line2);background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);aspect-ratio:9/16;max-height:560px;margin-left:auto}
-.phone video{width:100%;height:100%;object-fit:cover}
-@media (max-width:900px){.hero .w{grid-template-columns:1fr}.phone{margin:0 auto;max-width:360px;width:100%}}
+.phone{position:relative;width:min(100%,272px);aspect-ratio:9/19.3;padding:11px;border-radius:48px;background:linear-gradient(145deg,#2a2a2e,#0c0c0e 40%,#1d1d20);border:1px solid #3a3a40;box-shadow:0 0 0 2px #0a0a0b,0 40px 90px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.06);cursor:pointer;color:#fff;font:inherit;text-align:left;transition:transform .25s}
+.phone:hover{transform:translateY(-4px) rotate(-.6deg)}
+.phone::before,.phone::after{content:"";position:absolute;width:4px;border-radius:3px;background:#2c2c31}
+.phone::before{left:-5px;top:22%;height:64px;box-shadow:0 84px 0 #2c2c31}.phone::after{right:-5px;top:28%;height:92px}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:38px;overflow:hidden;background:#000}
+.phone video{position:absolute;left:0;right:0;top:50px;width:100%;aspect-ratio:9/16;height:auto;object-fit:cover;display:block}
+.phone .island{position:absolute;top:21px;left:50%;transform:translateX(-50%);width:84px;height:24px;border-radius:14px;background:#000;z-index:3}
+.tt-sb{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:12px 26px 0;font-size:11px;font-weight:700;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.tt-top{position:absolute;top:40px;left:0;right:0;display:flex;justify-content:center;gap:16px;font-size:12.5px;font-weight:700;color:rgba(255,255,255,.7);z-index:2;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.tt-top b{color:#fff;position:relative}.tt-top b::after{content:"";position:absolute;left:30%;right:30%;bottom:-5px;height:2px;border-radius:2px;background:#fff}
+.tt-rail{position:absolute;right:5px;bottom:58px;display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2}
+.tt-rail .av{width:34px;height:34px;border-radius:50%;background:var(--y);color:#111;display:grid;place-items:center;font-size:11px;font-weight:900;border:2px solid #fff;position:relative;margin-bottom:6px}
+.tt-rail .av::after{content:"+";position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);width:17px;height:17px;border-radius:50%;background:#fe2c55;color:#fff;font-size:13px;line-height:17px;text-align:center}
+.tt-rail i{display:flex;flex-direction:column;align-items:center;font-style:normal;font-size:9.5px;font-weight:700;gap:2px;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+.tt-rail svg{width:24px;height:24px;fill:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.tt-rail .disc{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle,#ffe45c 0 22%,#222 23% 100%);border:5px solid #333;animation:ttspin 4s linear infinite}
+@keyframes ttspin{to{transform:rotate(360deg)}}
+.tt-cap{position:absolute;left:0;right:44px;bottom:0;padding:8px 12px 14px;background:#000;z-index:1;font-size:11.5px;line-height:1.35}
+.tt-cap b{font-size:13px}.tt-cap p{margin:4px 0 6px;color:rgba(255,255,255,.92);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-cap .mu{display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden;color:rgba(255,255,255,.85)}
+.tt-bar{position:absolute;left:0;right:0;bottom:62px;height:2px;background:rgba(255,255,255,.25);z-index:2}.tt-bar i{display:block;height:100%;width:0;background:#fff}
+.tt-hint{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);z-index:3;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);font-size:13px;font-weight:800;white-space:nowrap;opacity:0;transition:opacity .2s}
+.phone:hover .tt-hint,.phone:focus-visible .tt-hint{opacity:1}
+.phone:focus-visible{outline:3px solid var(--y);outline-offset:6px}
+.tt-tap{display:block;text-align:center;font-size:13px;color:var(--mut);margin-top:12px}
+.vmodal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+.vmodal[hidden]{display:none}
+.vm-box{position:relative;height:min(88vh,860px);aspect-ratio:9/16;max-width:100%;border-radius:22px;overflow:hidden;background:#000;box-shadow:0 30px 100px rgba(0,0,0,.7)}
+.vm-box video{width:100%;height:100%;object-fit:contain;display:block}
+.vm-x{position:absolute;top:-6px;right:-6px;transform:translate(100%,0);width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:#111;font-size:24px;font-weight:700;cursor:pointer}
+@media (max-width:700px){.vm-box{height:auto;width:100%}.vm-x{transform:none;top:10px;right:10px;background:rgba(255,255,255,.9)}}
+@media (max-width:900px){.hero .w{grid-template-columns:1fr}.phone{justify-self:center;margin:0 auto;width:min(100%,290px)}}
 /* số liệu */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
@@ -213,7 +243,16 @@ footer .w{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}foo
 <div class="stat"><b>Mac · Win</b><span>Mac chip Apple, Windows 10/11</span></div>
 </div>
 </div>
-<div class="phone"><video src="../media/review.mp4" poster="../media/review.jpg" autoplay muted loop playsinline preload="metadata"></video></div>
+<div><button class="phone" type="button" id="heroPhone" aria-label="Xem video trước và sau khi edit">
+<span class="island"></span>
+<div class="scr">
+<video src="../media/review.mp4" poster="../media/review.jpg" autoplay muted loop playsinline preload="metadata"></video>
+<div class="tt-rail"><span class="av">AVE</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 5.2 3 1.6-1.9 3.1-3 5.2-3 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>Thích</i><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.9 2 11.6c0 2.6 1.4 4.9 3.6 6.5L5 22l4.3-2.4c.9.2 1.8.3 2.7.3 5.5 0 10-3.9 10-8.6S17.5 3 12 3z"/></svg>Bình luận</i><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a1 1 0 0 1 1 1v19l-7-4.5L5 22V3a1 1 0 0 1 1-1z"/></svg>Lưu</i><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3l9 8.5-9 8.5v-5C7 15 4 17 2 21c.6-6 3.6-11.4 11-12V3z"/></svg>Chia sẻ</i><span class="disc"></span></div>
+<div class="tt-cap"><b>@ave.studio</b><p>Tự edit trong 10 phút 🎬 #aiedit</p><div class="mu">♫ Âm thanh gốc – AVE Studio</div></div>
+<div class="tt-bar"><i></i></div>
+<span class="tt-hint">▶ Bấm để xem kỹ, có tiếng</span>
+</div></button>
+<span class="tt-tap">Bấm vào điện thoại để xem rõ, có tiếng</span></div>
 </div></section>
 
 <!-- 2. TRƯỚC / SAU -->
@@ -578,6 +617,27 @@ addEventListener('pagehide', function(){ flush(true); });
     F.hidden = true; D.hidden = false; D.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
   document.getElementById('trialAgain').addEventListener('click', function(){ T('tai_lai_dung_thu', 'edit'); });
+})();
+</script>
+<div class="vmodal" id="vModal" hidden role="dialog" aria-modal="true" aria-label="Video trước và sau">
+<div class="vm-box"><video id="vmVid" controls playsinline preload="none"></video><button class="vm-x" type="button" aria-label="Đóng">×</button></div>
+</div>
+<script>
+(function(){
+  var ph=document.getElementById('heroPhone'), M=document.getElementById('vModal'), V=document.getElementById('vmVid');
+  if(!ph||!M) return;
+  var pv=ph.querySelector('video'), bar=ph.querySelector('.tt-bar i');
+  pv.addEventListener('timeupdate',function(){ if(pv.duration) bar.style.width=(pv.currentTime/pv.duration*100)+'%'; });
+  function open(){
+    V.src=pv.currentSrc||pv.src; V.poster=pv.poster; M.hidden=false; document.body.style.overflow='hidden';
+    try{ V.currentTime=0; }catch(e){} V.muted=false; var pr=V.play(); if(pr&&pr.catch) pr.catch(function(){});
+    pv.pause(); if(window.aveTrack) aveTrack('xem_video_hero','/edit');
+    M.querySelector('.vm-x').focus();
+  }
+  function close(){ V.pause(); M.hidden=true; document.body.style.overflow=''; var pr=pv.play(); if(pr&&pr.catch) pr.catch(function(){}); ph.focus(); }
+  ph.addEventListener('click',open);
+  M.addEventListener('click',function(e){ if(e.target===M||e.target.classList.contains('vm-x')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!M.hidden) close(); });
 })();
 </script>
 </body>
